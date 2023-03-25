@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -95,8 +95,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="comparisons-between-4-different-methods---mpcr-vs.-carba5" class="level1">
-<h1>Comparisons between 4 different methods - MPCR vs.&nbsp;CARBA5</h1>
+<section id="mpcr-vs.-carba5" class="level1">
+<h1>MPCR vs.&nbsp;CARBA5</h1>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -342,13 +342,351 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="associated-to-ast" class="level1">
-<h1>Associated to AST</h1>
 <div class="cell">
 
 </div>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="cpo" class="level1">
+<h1>CPO</h1>
+<section id="cpo-mcim-and-ecim-conventional" class="level2">
+<h2 class="anchored" data-anchor-id="cpo-mcim-and-ecim-conventional">CPO, mCIM, and eCIM (Conventional)</h2>
+<div class="cell">
+
+</div>
+<ul>
+<li>mCIM (+) only in Class A or D Carbapenemase?</li>
+<li>eCIM (+) only in Class B Carbapenemase?</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">mCIM.x</th>
+<th style="text-align: left;">eCIM.x</th>
+<th style="text-align: right;">Count</th>
+<th style="text-align: left;">Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="method1-用carbapenemase區分畫三個confusion-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="method1-用carbapenemase區分畫三個confusion-matrix">Method1: 用Carbapenemase區分，畫三個confusion matrix</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="method2-用bar-chart取代三個confusion-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="method2-用bar-chart取代三個confusion-matrix">Method2: 用bar chart取代三個confusion matrix</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="cpo-mcim-and-ecim-firstall" class="level2">
+<h2 class="anchored" data-anchor-id="cpo-mcim-and-ecim-firstall">CPO, mCIM, and eCIM (FirstAll)</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">mCIM.y</th>
+<th style="text-align: left;">eCIM.y</th>
+<th style="text-align: right;">Count</th>
+<th style="text-align: left;">Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="method1-因為ecim都是所以省略不畫" class="level3">
+<h3 class="anchored" data-anchor-id="method1-因為ecim都是所以省略不畫">Method1: 因為eCIM都是+，所以省略不畫</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="method2-用bar-chart取代confusion-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="method2-用bar-chart取代confusion-matrix">Method2: 用bar chart取代confusion matrix</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="cpo-vs.-ast" class="level2">
+<h2 class="anchored" data-anchor-id="cpo-vs.-ast">CPO vs.&nbsp;AST</h2>
+<section id="not-class-b-but-ceftazidime-avibactam-r" class="level3">
+<h3 class="anchored" data-anchor-id="not-class-b-but-ceftazidime-avibactam-r">Not class B, but Ceftazidime-Avibactam R？</h3>
+<ul>
+<li>筆記只紀錄到Not class B, but Ceftazidime-Avibactam R應該還有其他要分析的標的?</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 29%">
+<col style="width: 25%">
+<col style="width: 7%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">MarkerNew</th>
+<th style="text-align: left;">Ab</th>
+<th style="text-align: left;">Res</th>
+<th style="text-align: right;">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">102</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>只分Class B or Not Class B</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
 </section>
 
 </main>

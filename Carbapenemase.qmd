@@ -1,0 +1,532 @@
+---
+title: "Carbapenemase Project"
+format: html
+author: "Yi-Ju Tseng"
+editor: visual
+---
+
+# FirstAll vs. Conventional
+
+```{r, message=FALSE, warning=FALSE}
+#| echo: false
+library(readxl)
+library(tidyverse)
+library(cvms)
+library(patchwork)
+```
+
+```{r, message=FALSE, warning=FALSE}
+#| echo: false
+df.bd = read_excel("20221115_CPO_BD_KP.xlsx",sheet = "Raw")[,1:10]
+df.w = read_excel("20221116_CPO_WANG_KP.xlsx",sheet = "KP")
+```
+
+```{r}
+#| echo: false
+########################################
+#pre-processing
+########################################
+df.bd$ID = df.bd$ID %>% 
+  str_sub(start = 5,end = 12)
+
+df.bd = df.bd %>% 
+  filter(BAC %in% c("Klebsiella pneumoniae"))
+
+df.w$ID=df.w$ID %>% as.character()
+```
+
+```{r}
+#| echo: false
+########################################
+#merge
+########################################
+df.merge = left_join(df.bd,df.w,by = "ID")
+df.merge$mCIM.y = df.merge$mCIM.y %>% 
+  str_replace(pattern = "\\+", 
+              replacement = "1") %>% 
+  str_replace( pattern = "\\-", 
+              replacement = "0")
+```
+
+```{r}
+#| echo: false
+########################################
+#stats
+########################################
+#df.merge<-df.merge %>% rename(Conventional=mCIM.x,FirstAll=mCIM.y)
+#mat=cbind(df.merge$mCIM.x,df.merge$mCIM.y) %>% as.data.frame()
+#colnames(mat) = c("Conventional","FirstAll")
+df.merge=df.merge %>% 
+  filter(mCIM.x %in% c(0,1)) %>% 
+  filter(mCIM.y %in% c(0,1))
+df.merge$mCIM.x<-ifelse(df.merge$mCIM.x==0,"(-)","(+)")
+df.merge$mCIM.y<-ifelse(df.merge$mCIM.y==0,"(-)","(+)")
+df.merge$eCIM.x<-ifelse(df.merge$eCIM.x==0,"(-)","(+)")
+df.merge$eCIM.y<-ifelse(df.merge$eCIM.y==0,"(-)","(+)")
+mCIM.comp=table(df.merge$mCIM.x,df.merge$mCIM.y) 
+dimnames(mCIM.comp)[[1]]<-c("Conventional-mCIM(-)","Conventional-mCIM(+)")
+dimnames(mCIM.comp)[[2]]<-c("FirstAll-mCIM(-)","FirstAll-mCIM(+)")
+mCIM.comp
+# write.csv(mCIM.comp,"mCIM.comp_KP.csv",row.names = TRUE)
+```
+
+```{r warning=FALSE,fig.height=4,fig.width=4}
+#| echo: false
+
+eval <- evaluate(
+  data = df.merge,
+  target_col = "mCIM.x",
+  prediction_cols = "mCIM.y",
+  type="binomial",
+  positive = "(+)"
+)
+plot_confusion_matrix(eval,
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="Conventional",y="FirstAll")
+ggsave("Con_vs_FirstAll.pdf",device = "pdf",width = 4,height = 4)
+```
+
+# MPCR vs. CARBA5
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+#MixTable <- read_excel("CONFUSION MATRIX TABLE.xlsx", 
+#    sheet = "Mix")
+#MixTable$ID<-as.character(MixTable$ID)
+source("Carbapenemase.R")
+FinalCM<-FinalCM%>%filter(!is.na(MPCR))
+
+FinalCM %>%
+  group_by(SPECIES,GENE) %>%
+  summarise(NumberOfPatients=n()) %>%knitr::kable()
+```
+
+## Klebsiella pneumoniae
+
+```{r warning=F,message=F}
+#| echo: false
+KP<-FinalCM %>% filter(SPECIES=="KP") #1500
+#eval <- evaluate(
+#  data = KP %>% filter(!is.na(MPCR))%>%group_by(GENE),
+#  target_col = "MPCR",
+#  prediction_cols = "CARBA5",
+#  type="binomial",parallel = T
+#)
+KPGroup<-
+  KP %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+
+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## Escherichia coli
+
+```{r warning=F,message=F}
+#| echo: false
+EC<-FinalCM %>% filter(SPECIES=="EC") #1500
+eval <- evaluate(
+  data = EC %>% filter(GENE!="IMP")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+ECGroup<-
+  EC %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## Enterobacter cloacae complex
+
+```{r warning=F,message=F}
+#| echo: false
+ECC<-FinalCM %>% filter(SPECIES=="ENT.CLOACAE") #1500
+eval <- evaluate(
+  data = ECC %>% filter(GENE!="VIM")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+ECCGroup<-
+  ECC %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## CITRO.FREUNDII
+
+```{r warning=F,message=F}
+#| echo: false
+CF<-FinalCM %>% filter(SPECIES=="CITRO.FREUNDII") #1500
+eval <- evaluate(
+  data = CF %>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+CFGroup<-
+  CF %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## CITRO.KOSERI
+
+```{r warning=F,message=F}
+#| echo: false
+CK<-FinalCM %>% filter(SPECIES=="CITRO.KOSERI") #1500
+eval <- evaluate(
+  data = CK %>% filter(!GENE %in% c("NDM","VIM","OXA")) %>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+CKGroup<-
+  CK %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## K.AEROGENES
+
+```{r warning=F,message=F}
+#| echo: false
+KA<-FinalCM %>% filter(SPECIES=="K.AEROGENES") #1500
+eval <- evaluate(
+  data = KA %>% filter(GENE %in% c("IMP","OXA"))%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+KAGroup<-
+  KA %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+## K.AEROGENES
+
+```{r warning=F,message=F}
+#| echo: false
+KO<-FinalCM %>% filter(SPECIES=="K.OXYTOCA") #1500
+eval <- evaluate(
+  data = KO %>% filter(GENE!="IMP")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+KOGroup<-
+  KO %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+#FinalCM %>% filter(SPECIES=="KP") %>%
+#  ggplot(aes(x=MPCR))+
+#  geom_bar()+
+#  facet_grid(paste0("CARBA 5:",CARBA5)~GENE,scales ="free")+
+#  scale_x_continuous(breaks = c(0,1))+
+#  theme_bw()
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+AST<-read_csv("20230307_CPO_BD_AST.csv")
+AST<-AST %>% 
+  mutate(ID=gsub("CPO-","",B), 
+         Marker=ifelse(grepl("Class A|Class D",Marker),
+                       "Class A or D Carbapenemase Producer",Marker))
+AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
+                    ifelse(AST$Name=="Klebsiella oxytoca","K.OXYTOCA",
+                           ifelse(AST$Name=="Klebsiella aerogenes","K.AEROGENES",
+                                  ifelse(AST$Name=="Escherichia coli","EC",
+                                         ifelse(AST$Name=="Enterobacter cloacae complex","ENT.CLOACAE",
+                                                ifelse(AST$Name=="Citrobacter koseri","CITRO.KOSERI",
+                                                       ifelse(AST$Name=="Citrobacter freundii complex","CITRO.FREUNDII",
+                                                              AST$Name)))))))
+
+AST_MPCR<-inner_join(AST,FinalCM,by=c("ID","SPECIES"))
+AST_MPCRGroup<-
+  AST_MPCR %>% group_by(MPCR,CARBA5,Ab,Res) %>%
+  summarise(Count=n())
+```
+
+
+# CPO
+
+## CPO, mCIM, and eCIM (Conventional)
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CPO<-
+  AST%>%select(ID,Name,Marker) %>% unique() %>% 
+  filter(!is.na(Marker)) 
+
+CPO_CIM<-inner_join(CPO,df.merge)
+```
+
+- mCIM (+) only in Class A or D Carbapenemase?
+- eCIM (+) only in Class B Carbapenemase?
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CPO_CIMGroup<-
+  CPO_CIM %>% group_by(Marker,mCIM.x,eCIM.x) %>%
+  summarise(Count=n())%>%
+  ungroup() %>%
+  complete(Marker, mCIM.x, eCIM.x, fill = list(Count = 0)) 
+
+CPO_CIMGroup$Tag<-""
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Class A or D Carbapenemase Producer" & CPO_CIMGroup$mCIM.x=="(+)",
+       "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Class B Carbapenemase Producer" & CPO_CIMGroup$eCIM.x=="(+)",
+       "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Marker<-gsub(" Producer","",CPO_CIMGroup$Marker)
+knitr::kable(CPO_CIMGroup)
+```
+
+### Method1: 用Carbapenemase區分，畫三個confusion matrix
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM.x
+CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM.x
+CPO_CIMGroup$N<-CPO_CIMGroup$Count
+(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Carbapenemase"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="mCIM",y="eCIM",title="Carbapenemase"))+
+(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Class B Carbapenemase"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="mCIM",y="eCIM",title="Class B Carbapenemase"))+
+(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Class A or D Carbapenemase"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="mCIM",y="eCIM",title="Class A or D Carbapenemase"))
+
+```
+
+### Method2: 用bar chart取代三個confusion matrix
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ggplot(CPO_CIMGroup,aes(x=mCIM.x,y=Count,fill=Tag))+
+  geom_bar(stat="identity",show.legend = FALSE)+
+  facet_grid(paste0("eCIM ",eCIM.x)~Marker)+
+  labs(x="mCIM")+
+  theme_bw()+
+  scale_fill_manual(values=c("Conflict"="coral1"))
+```
+
+
+## CPO, mCIM, and eCIM (FirstAll)
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CPO_CIMGroupNew<-
+  CPO_CIM %>% group_by(Marker,mCIM.y,eCIM.y) %>%
+  summarise(Count=n())
+
+CPO_CIMGroupNew$Tag<-""
+CPO_CIMGroupNew$Tag<-
+  ifelse(CPO_CIMGroupNew$Marker=="Class A or D Carbapenemase Producer" & CPO_CIMGroupNew$mCIM.y=="(-)",
+       "Conflict",CPO_CIMGroupNew$Tag)
+CPO_CIMGroupNew$Tag<-
+  ifelse(CPO_CIMGroupNew$Marker=="Class B Carbapenemase Producer" & CPO_CIMGroupNew$eCIM.y=="(-)",
+       "Conflict",CPO_CIMGroupNew$Tag)
+CPO_CIMGroupNew$Marker<-gsub(" Producer","",CPO_CIMGroupNew$Marker)
+knitr::kable(CPO_CIMGroupNew)
+```
+### Method1: 因為eCIM都是+，所以省略不畫
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ggplot(CPO_CIMGroupNew,aes(x=mCIM.y,y=Marker,fill=Count,label=Count))+
+  geom_tile(show.legend = FALSE)+
+  geom_text()+
+  labs(x="mCIM",y="")+
+  theme_minimal()+
+  scale_fill_gradient(low="lightskyblue1",high="steelblue4")
+```
+
+### Method2: 用bar chart取代confusion matrix
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ggplot(CPO_CIMGroupNew,aes(x=mCIM.y,y=Count,fill=Tag))+
+  geom_bar(stat="identity",show.legend = FALSE)+
+  facet_grid(.~Marker)+
+  labs(x="mCIM")+
+  theme_bw()+
+  scale_fill_manual(values=c("Conflict"="coral1"))
+```
+
+## CPO vs. AST
+
+### Not class B, but Ceftazidime-Avibactam R？
+
+- 筆記只紀錄到Not class B, but Ceftazidime-Avibactam R應該還有其他要分析的標的?
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ASTCPO<-AST%>%select(B,Name,Marker,Ab,Res) %>% unique() %>% 
+  filter(grepl("^CPO",B)&!is.na(Marker)) %>% 
+  mutate(ID=gsub("CPO-","",B), 
+         Marker=gsub(" Producer","",Marker),
+         MarkerNew=ifelse(grepl("Class B",Marker),Marker,"Not Class B Carbapenemase"),
+         Res=ifelse(Res=="R","R","S or I"))
+ASTCPOGroup<-
+  ASTCPO %>% filter(Ab %in% c("Ceftazidime","Ceftazidime-Avibactam")) %>%
+  group_by(Marker,MarkerNew,Ab,Res) %>%
+  summarise(Count=n())
+knitr::kable(ASTCPOGroup)
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+  ggplot(aes(x=Res,y=Count,label=Count))+
+  geom_bar(stat="identity")+
+  geom_text()+
+  facet_grid(.~Marker)+
+  theme_bw()
+```
+
+- 只分Class B or Not Class B
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ASTCPOGroup  %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+  ungroup()%>%
+  group_by(MarkerNew,Ab,Res) %>%
+  summarise(CountTotal=sum(Count)) %>%
+  ggplot(aes(x=Res,y=CountTotal,label=CountTotal))+
+  geom_bar(stat="identity")+
+  geom_text()+
+  facet_grid(.~MarkerNew)+
+  theme_bw()
+```
