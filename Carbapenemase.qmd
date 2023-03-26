@@ -1185,6 +1185,31 @@ MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
   labs(x="MIC",y="MPCR",title="Meropenem")
+
+MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Imipenem")
+
+MICCPOMPCR %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Ertapenem")
+
+```
+
+#### Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
 MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
@@ -1194,14 +1219,6 @@ MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
   theme_classic()+
   labs(x="MIC",y="MPCR",title="Meropenem")
 MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
-  group_by(Tit,GENEGroup) %>%
-  summarise(Count=n())%>%
-  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
-  geom_tile()+geom_text()+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
-  theme_classic()+
-  labs(x="MIC",y="MPCR",title="Imipenem")
-MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
   ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
@@ -1209,14 +1226,6 @@ MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
   labs(x="MIC",y="MPCR",title="Imipenem")
-MICCPOMPCR %>% filter(Ab=="Ertapenem") %>%
-  group_by(Tit,GENEGroup) %>%
-  summarise(Count=n())%>%
-  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
-  geom_tile()+geom_text()+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
-  theme_classic()+
-  labs(x="MIC",y="MPCR",title="Ertapenem")
 MICCPOMPCR %>% filter(Ab=="Ertapenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
@@ -1242,6 +1251,31 @@ MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Meropenem")
+
+MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Imipenem")
+
+MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Ertapenem")
+
+```
+
+#### Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
 MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
@@ -1251,14 +1285,6 @@ MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Meropenem")
 MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
-  group_by(Tit,GENEGroup) %>%
-  summarise(Count=n())%>%
-  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
-  geom_tile()+geom_text()+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
-  theme_classic()+
-  labs(x="MIC",y="CARBA5",title="Imipenem")
-MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
   ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
@@ -1266,14 +1292,6 @@ MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Imipenem")
-MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
-  group_by(Tit,GENEGroup) %>%
-  summarise(Count=n())%>%
-  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
-  geom_tile()+geom_text()+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
-  theme_classic()+
-  labs(x="MIC",y="CARBA5",title="Ertapenem")
 MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
   group_by(Tit,GENENew) %>%
   summarise(Count=n())%>%
