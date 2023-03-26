@@ -46,6 +46,11 @@ df.merge$mCIM.y = df.merge$mCIM.y %>%
               replacement = "1") %>% 
   str_replace( pattern = "\\-", 
               replacement = "0")
+df.merge$eCIM.y = df.merge$eCIM.y %>% 
+  str_replace(pattern = "\\+", 
+              replacement = "1") %>% 
+  str_replace( pattern = "\\-", 
+              replacement = "0")
 ```
 
 ```{r}
@@ -381,116 +386,109 @@ AST_MPCRGroup<-
 ```
 
 
-# CPO
-
-## CPO, mCIM, and eCIM (Conventional)
-
+# CPO, mCIM, and eCIM (FirstAll)
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 CPO<-
   AST%>%select(ID,Name,Marker) %>% unique() %>% 
   filter(!is.na(Marker)) 
 
-CPO_CIM<-inner_join(CPO,df.merge)
+CIM_KP <- read_excel("20230307_CPO_BD_final.xlsx", 
+    sheet = "KP")
+CIM_Other <- read_excel("20230307_CPO_BD_final.xlsx", 
+    sheet = "other")
+col<-c("Accession","Organism","mCIM","eCIM","mCIM/eCIM Result")
+CIMAll<-rbind(CIM_KP[,col],CIM_Other[,col])
+CIMAll$ID<-gsub("CPO-","",CIMAll$Accession)
+table(CIMAll$eCIM)
+table(CIMAll$mCIM)
+## clean needed
+CIMAll$mCIM<-ifelse(CIMAll$mCIM==0,"(-)","(+)")
+CIMAll$eCIM<-ifelse(CIMAll$eCIM==0,"(-)","(+)")
+CIMAll<-CIMAll %>% filter(!is.na(mCIM)&!is.na(eCIM))
+CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism"))
 ```
 
-- mCIM (+) only in Class A or D Carbapenemase?
-- eCIM (+) only in Class B Carbapenemase?
+- mCIM-eCIM- => no carbapenemase detected **(unknown? or NA?)**
+- mCIM+eCIM- => class A or D **(How about unknown?)**
+- mCIM-eCIM+ => lab error? should be rechecked
+- mCIM+eCIM+ => classB **(How about unknown?)**
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 CPO_CIMGroup<-
-  CPO_CIM %>% group_by(Marker,mCIM.x,eCIM.x) %>%
+  CPO_CIM %>% group_by(Name,Marker,mCIM,eCIM) %>%
   summarise(Count=n())%>%
   ungroup() %>%
-  complete(Marker, mCIM.x, eCIM.x, fill = list(Count = 0)) 
+  complete(Name,Marker, mCIM, eCIM, fill = list(Count = 0)) 
 
 CPO_CIMGroup$Tag<-""
 CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$Marker!="Class A or D Carbapenemase Producer" & CPO_CIMGroup$mCIM.x=="(+)",
+  ifelse(CPO_CIMGroup$Marker!="Class A or D Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(+)" & CPO_CIMGroup$eCIM=="(-)",
        "Conflict",CPO_CIMGroup$Tag)
 CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$Marker!="Class B Carbapenemase Producer" & CPO_CIMGroup$eCIM.x=="(+)",
+  ifelse(CPO_CIMGroup$Marker!="Class B Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(+)"&CPO_CIMGroup$eCIM=="(+)",
        "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(-)"&CPO_CIMGroup$eCIM=="(-)",
+       "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$mCIM=="(-)"&CPO_CIMGroup$eCIM=="(+)",
+       "Error?",CPO_CIMGroup$Tag)
 CPO_CIMGroup$Marker<-gsub(" Producer","",CPO_CIMGroup$Marker)
 knitr::kable(CPO_CIMGroup)
 ```
 
-### Method1: 用Carbapenemase區分，畫三個confusion matrix
+## Method1: 用Carbapenemase區分，畫三個confusion matrix
+
+### KP
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM.x
-CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM.x
+CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM
+CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM
 CPO_CIMGroup$N<-CPO_CIMGroup$Count
-(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Carbapenemase"),
+(plot_confusion_matrix(CPO_CIMGroup %>% 
+                         filter(Name=="Klebsiella pneumoniae"&
+                                  Marker=="Carbapenemase"),
   counts_on_top=TRUE,add_normalized=FALSE)+
   labs(x="mCIM",y="eCIM",title="Carbapenemase"))+
-(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Class B Carbapenemase"),
+(plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class B Carbapenemase"),
   counts_on_top=TRUE,add_normalized=FALSE)+
   labs(x="mCIM",y="eCIM",title="Class B Carbapenemase"))+
-(plot_confusion_matrix(CPO_CIMGroup %>% filter(Marker=="Class A or D Carbapenemase"),
+(plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class A or D Carbapenemase"),
   counts_on_top=TRUE,add_normalized=FALSE)+
   labs(x="mCIM",y="eCIM",title="Class A or D Carbapenemase"))
 
 ```
+### Other Bact (TBD)
 
-### Method2: 用bar chart取代三個confusion matrix
+## Method2: 用bar chart取代三個confusion matrix
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-ggplot(CPO_CIMGroup,aes(x=mCIM.x,y=Count,fill=Tag))+
+ggplot(CPO_CIMGroup%>% 
+         filter(Name=="Klebsiella pneumoniae"),
+       aes(x=mCIM,y=Count,fill=Tag))+
   geom_bar(stat="identity",show.legend = FALSE)+
-  facet_grid(paste0("eCIM ",eCIM.x)~Marker)+
+  facet_grid(paste0("eCIM ",eCIM)~Marker)+
   labs(x="mCIM")+
   theme_bw()+
-  scale_fill_manual(values=c("Conflict"="coral1"))
+  scale_fill_manual(values=c("Conflict"="coral1","Error?"="coral4"))
 ```
 
-
-## CPO, mCIM, and eCIM (FirstAll)
-
-```{r warning=FALSE, message=FALSE}
-#| echo: false
-CPO_CIMGroupNew<-
-  CPO_CIM %>% group_by(Marker,mCIM.y,eCIM.y) %>%
-  summarise(Count=n())
-
-CPO_CIMGroupNew$Tag<-""
-CPO_CIMGroupNew$Tag<-
-  ifelse(CPO_CIMGroupNew$Marker=="Class A or D Carbapenemase Producer" & CPO_CIMGroupNew$mCIM.y=="(-)",
-       "Conflict",CPO_CIMGroupNew$Tag)
-CPO_CIMGroupNew$Tag<-
-  ifelse(CPO_CIMGroupNew$Marker=="Class B Carbapenemase Producer" & CPO_CIMGroupNew$eCIM.y=="(-)",
-       "Conflict",CPO_CIMGroupNew$Tag)
-CPO_CIMGroupNew$Marker<-gsub(" Producer","",CPO_CIMGroupNew$Marker)
-knitr::kable(CPO_CIMGroupNew)
-```
-### Method1: 因為eCIM都是+，所以省略不畫
-```{r warning=FALSE, message=FALSE}
-#| echo: false
-ggplot(CPO_CIMGroupNew,aes(x=mCIM.y,y=Marker,fill=Count,label=Count))+
-  geom_tile(show.legend = FALSE)+
-  geom_text()+
-  labs(x="mCIM",y="")+
-  theme_minimal()+
-  scale_fill_gradient(low="lightskyblue1",high="steelblue4")
-```
-
-### Method2: 用bar chart取代confusion matrix
-```{r warning=FALSE, message=FALSE}
-#| echo: false
-ggplot(CPO_CIMGroupNew,aes(x=mCIM.y,y=Count,fill=Tag))+
-  geom_bar(stat="identity",show.legend = FALSE)+
-  facet_grid(.~Marker)+
-  labs(x="mCIM")+
-  theme_bw()+
-  scale_fill_manual(values=c("Conflict"="coral1"))
-```
+### Other Bact (TBD)
 
 ## CPO vs. AST
 
 ### Not class B, but Ceftazidime-Avibactam R？
 
-- 筆記只紀錄到Not class B, but Ceftazidime-Avibactam R應該還有其他要分析的標的?
+- Not class B, but Ceftazidime-Avibactam R
+- Ertapenem, Imipenem, Meropenem **每個抗生素分開呈現？**: 
+    - MIC vs mCIM/eCIM (TBD)
+    - MIC vs MPCR (TBD)
+    - MIC vs CARBA5 (TBD)
+    - MIC vs CPO (TBD)
+    
+- 要分菌株嗎？
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
@@ -498,11 +496,11 @@ ASTCPO<-AST%>%select(B,Name,Marker,Ab,Res) %>% unique() %>%
   filter(grepl("^CPO",B)&!is.na(Marker)) %>% 
   mutate(ID=gsub("CPO-","",B), 
          Marker=gsub(" Producer","",Marker),
-         MarkerNew=ifelse(grepl("Class B",Marker),Marker,"Not Class B Carbapenemase"),
-         Res=ifelse(Res=="R","R","S or I"))
+         MarkerNew=ifelse(Marker=="Carbapenemase","Class Unknown",Marker),
+         Res=ifelse(Res=="S","S","R or I"))
 ASTCPOGroup<-
-  ASTCPO %>% filter(Ab %in% c("Ceftazidime","Ceftazidime-Avibactam")) %>%
-  group_by(Marker,MarkerNew,Ab,Res) %>%
+  ASTCPO %>% filter(Ab %in% c("Ceftazidime-Avibactam")) %>%
+  group_by(Name,Marker,MarkerNew,Ab,Res) %>%
   summarise(Count=n())
 knitr::kable(ASTCPOGroup)
 ```
@@ -510,23 +508,22 @@ knitr::kable(ASTCPOGroup)
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
-  ggplot(aes(x=Res,y=Count,label=Count))+
+  ggplot(aes(x=Res,y=Count,label=Count,fill=Name))+
   geom_bar(stat="identity")+
-  geom_text()+
+  #geom_text()+
+  scale_fill_brewer(palette = "Dark2")+
   facet_grid(.~Marker)+
   theme_bw()
 ```
 
-- 只分Class B or Not Class B
+- 換個名字？
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-ASTCPOGroup  %>% filter(Ab=="Ceftazidime-Avibactam") %>%
-  ungroup()%>%
-  group_by(MarkerNew,Ab,Res) %>%
-  summarise(CountTotal=sum(Count)) %>%
-  ggplot(aes(x=Res,y=CountTotal,label=CountTotal))+
+ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+  ggplot(aes(x=Res,y=Count,label=Count,fill=Name))+
   geom_bar(stat="identity")+
-  geom_text()+
+  #geom_text()+
+  scale_fill_brewer(palette = "Set1")+
   facet_grid(.~MarkerNew)+
   theme_bw()
 ```
