@@ -350,31 +350,626 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 </section>
-<section id="cpo" class="level1">
-<h1>CPO</h1>
-<section id="cpo-mcim-and-ecim-conventional" class="level2">
-<h2 class="anchored" data-anchor-id="cpo-mcim-and-ecim-conventional">CPO, mCIM, and eCIM (Conventional)</h2>
+<section id="cpo-mcim-and-ecim-firstall" class="level1">
+<h1>CPO, mCIM, and eCIM (FirstAll)</h1>
 <div class="cell">
-
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  0   1   2 
+373 113  14 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+#REF!     0     1 
+    1   238   261 </code></pre>
+</div>
 </div>
 <ul>
-<li>mCIM (+) only in Class A or D Carbapenemase?</li>
-<li>eCIM (+) only in Class B Carbapenemase?</li>
+<li>mCIM-eCIM- =&gt; no carbapenemase detected <strong>(unknown? or NA?)</strong></li>
+<li>mCIM+eCIM- =&gt; class A or D <strong>(How about unknown?)</strong></li>
+<li>mCIM-eCIM+ =&gt; lab error? should be rechecked</li>
+<li>mCIM+eCIM+ =&gt; classB <strong>(How about unknown?)</strong></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 33%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: left;">Name</th>
 <th style="text-align: left;">Marker</th>
-<th style="text-align: left;">mCIM.x</th>
-<th style="text-align: left;">eCIM.x</th>
+<th style="text-align: left;">mCIM</th>
+<th style="text-align: left;">eCIM</th>
 <th style="text-align: right;">Count</th>
 <th style="text-align: left;">Tag</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Error?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(-)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Conflict</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: left;">(+)</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(-)</td>
@@ -382,20 +977,23 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">Error?</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(-)</td>
-<td style="text-align: right;">42</td>
+<td style="text-align: right;">43</td>
 <td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(+)</td>
@@ -403,20 +1001,23 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">Error?</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(-)</td>
@@ -424,6 +1025,7 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(+)</td>
@@ -431,20 +1033,23 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: right;">8</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">(-)</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">Error?</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(-)</td>
@@ -452,109 +1057,40 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: left;">(+)</td>
 <td style="text-align: right;">9</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<section id="method1-用carbapenemase區分畫三個confusion-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="method1-用carbapenemase區分畫三個confusion-matrix">Method1: 用Carbapenemase區分，畫三個confusion matrix</h3>
+<section id="method1-用carbapenemase區分畫三個confusion-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="method1-用carbapenemase區分畫三個confusion-matrix">Method1: 用Carbapenemase區分，畫三個confusion matrix</h2>
+<section id="kp" class="level3">
+<h3 class="anchored" data-anchor-id="kp">KP</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="method2-用bar-chart取代三個confusion-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="method2-用bar-chart取代三個confusion-matrix">Method2: 用bar chart取代三個confusion matrix</h3>
+<section id="other-bact-tbd" class="level3">
+<h3 class="anchored" data-anchor-id="other-bact-tbd">Other Bact (TBD)</h3>
+</section>
+</section>
+<section id="method2-用bar-chart取代三個confusion-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="method2-用bar-chart取代三個confusion-matrix">Method2: 用bar chart取代三個confusion matrix</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="cpo-mcim-and-ecim-firstall" class="level2">
-<h2 class="anchored" data-anchor-id="cpo-mcim-and-ecim-firstall">CPO, mCIM, and eCIM (FirstAll)</h2>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Marker</th>
-<th style="text-align: left;">mCIM.y</th>
-<th style="text-align: left;">eCIM.y</th>
-<th style="text-align: right;">Count</th>
-<th style="text-align: left;">Tag</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">(-)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">80</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">(-)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">Conflict</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">66</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">(-)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: left;">(+)</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<section id="method1-因為ecim都是所以省略不畫" class="level3">
-<h3 class="anchored" data-anchor-id="method1-因為ecim都是所以省略不畫">Method1: 因為eCIM都是+，所以省略不畫</h3>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="method2-用bar-chart取代confusion-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="method2-用bar-chart取代confusion-matrix">Method2: 用bar chart取代confusion matrix</h3>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<section id="other-bact-tbd-1" class="level3">
+<h3 class="anchored" data-anchor-id="other-bact-tbd-1">Other Bact (TBD)</h3>
 </section>
 </section>
 <section id="cpo-vs.-ast" class="level2">
@@ -562,20 +1098,30 @@ ul.task-list li input[type="checkbox"] {
 <section id="not-class-b-but-ceftazidime-avibactam-r" class="level3">
 <h3 class="anchored" data-anchor-id="not-class-b-but-ceftazidime-avibactam-r">Not class B, but Ceftazidime-Avibactam R？</h3>
 <ul>
-<li>筆記只紀錄到Not class B, but Ceftazidime-Avibactam R應該還有其他要分析的標的?</li>
+<li>Not class B, but Ceftazidime-Avibactam R</li>
+<li>Ertapenem, Imipenem, Meropenem <strong>每個抗生素分開呈現？</strong>:
+<ul>
+<li>MIC vs mCIM/eCIM (TBD)</li>
+<li>MIC vs MPCR (TBD)</li>
+<li>MIC vs CARBA5 (TBD)</li>
+<li>MIC vs CPO (TBD)</li>
+</ul></li>
+<li>要分菌株嗎？</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 29%">
-<col style="width: 25%">
-<col style="width: 7%">
-<col style="width: 6%">
+<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 5%">
 </colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: left;">Name</th>
 <th style="text-align: left;">Marker</th>
 <th style="text-align: left;">MarkerNew</th>
 <th style="text-align: left;">Ab</th>
@@ -585,88 +1131,220 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">Citrobacter freundii complex</td>
 <td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: right;">102</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
-<td style="text-align: left;">S or I</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">R</td>
-<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">S or I</td>
-<td style="text-align: right;">76</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">Citrobacter freundii complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">R</td>
-<td style="text-align: right;">99</td>
+<td style="text-align: right;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
+<td style="text-align: left;">Citrobacter koseri</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">S or I</td>
-<td style="text-align: right;">14</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Citrobacter koseri</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">R</td>
 <td style="text-align: right;">8</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">Escherichia coli</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">11</td>
+</tr>
 <tr class="even">
+<td style="text-align: left;">Klebsiella aerogenes</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
 <td style="text-align: left;">Class A or D Carbapenemase</td>
-<td style="text-align: left;">Not Class B Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">S or I</td>
-<td style="text-align: right;">105</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
-<td style="text-align: left;">R</td>
-<td style="text-align: right;">82</td>
+<td style="text-align: right;">1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">Class B Carbapenemase</td>
-<td style="text-align: left;">Ceftazidime</td>
-<td style="text-align: left;">S or I</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">R</td>
-<td style="text-align: right;">64</td>
+<td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
+<td style="text-align: left;">Klebsiella aerogenes</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">Class B Carbapenemase</td>
 <td style="text-align: left;">Ceftazidime-Avibactam</td>
 <td style="text-align: left;">S or I</td>
-<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella oxytoca</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Carbapenemase</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Class A or D Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">R</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Klebsiella pneumoniae</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Class B Carbapenemase</td>
+<td style="text-align: left;">Ceftazidime-Avibactam</td>
+<td style="text-align: left;">S or I</td>
+<td style="text-align: right;">7</td>
 </tr>
 </tbody>
 </table>
@@ -674,15 +1352,15 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
-<li>只分Class B or Not Class B</li>
+<li>換個名字？</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
