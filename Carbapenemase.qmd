@@ -93,6 +93,8 @@ ggsave("Con_vs_FirstAll.pdf",device = "pdf",width = 4,height = 4)
 
 # MPCR vs. CARBA5
 
+- Add GENE combination (TBD)
+
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 #MixTable <- read_excel("CONFUSION MATRIX TABLE.xlsx", 
@@ -366,10 +368,14 @@ KOGroup<-
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 AST<-read_csv("20230307_CPO_BD_AST.csv")
-AST<-AST %>% 
+AST<-AST %>% filter(grepl("CPO-",B)&Res!="X")%>%
   mutate(ID=gsub("CPO-","",B), 
          Marker=ifelse(grepl("Class A|Class D",Marker),
-                       "Class A or D Carbapenemase Producer",Marker))
+                       "Class A or D",
+                       ifelse(Marker=="Carbapenemase Producer","Class Unknown",
+                              ifelse(grepl("Class B",Marker),"Class B",Marker))), 
+         Res=ifelse(Res=="S","S","R or I"))
+AST$Marker<-ifelse(is.na(AST$Marker),"Negative",AST$Marker)
 AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
                     ifelse(AST$Name=="Klebsiella oxytoca","K.OXYTOCA",
                            ifelse(AST$Name=="Klebsiella aerogenes","K.AEROGENES",
@@ -379,19 +385,23 @@ AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
                                                        ifelse(AST$Name=="Citrobacter freundii complex","CITRO.FREUNDII",
                                                               AST$Name)))))))
 
+AST<-AST %>% filter(!(ID=="32968" &Marker=="Negative"))
+
 AST_MPCR<-inner_join(AST,FinalCM,by=c("ID","SPECIES"))
 AST_MPCRGroup<-
   AST_MPCR %>% group_by(MPCR,CARBA5,Ab,Res) %>%
   summarise(Count=n())
+ASTCPO<-AST%>%select(ID,Name,SPECIES,Marker,Ab,Res) %>% unique() 
+CPO<-
+  AST%>%select(ID,Name,SPECIES,Marker) %>% unique() %>% 
+  filter(!is.na(Marker)) 
+
 ```
 
 
 # CPO, mCIM, and eCIM (FirstAll)
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO<-
-  AST%>%select(ID,Name,Marker) %>% unique() %>% 
-  filter(!is.na(Marker)) 
 
 CIM_KP <- read_excel("20230307_CPO_BD_final.xlsx", 
     sheet = "KP")
@@ -400,12 +410,11 @@ CIM_Other <- read_excel("20230307_CPO_BD_final.xlsx",
 col<-c("Accession","Organism","mCIM","eCIM","mCIM/eCIM Result")
 CIMAll<-rbind(CIM_KP[,col],CIM_Other[,col])
 CIMAll$ID<-gsub("CPO-","",CIMAll$Accession)
-table(CIMAll$eCIM)
-table(CIMAll$mCIM)
-## clean needed
+CIMAll<-CIMAll %>% filter(!is.na(mCIM)&!is.na(eCIM)&eCIM!=2&mCIM!="#REF!")
+#table(CIMAll$eCIM)
+#table(CIMAll$mCIM)
 CIMAll$mCIM<-ifelse(CIMAll$mCIM==0,"(-)","(+)")
 CIMAll$eCIM<-ifelse(CIMAll$eCIM==0,"(-)","(+)")
-CIMAll<-CIMAll %>% filter(!is.na(mCIM)&!is.na(eCIM))
 CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism"))
 ```
 
@@ -416,91 +425,180 @@ CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism"))
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
+CPO_CIM$mCIMeCIM<-paste0("mCIM",CPO_CIM$mCIM,"/eCIM",CPO_CIM$eCIM)
+CPO_CIM<-CPO_CIM %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
 CPO_CIMGroup<-
-  CPO_CIM %>% group_by(Name,Marker,mCIM,eCIM) %>%
+  CPO_CIM %>%
+  group_by(Name,Marker,mCIMeCIM) %>%
   summarise(Count=n())%>%
   ungroup() %>%
-  complete(Name,Marker, mCIM, eCIM, fill = list(Count = 0)) 
+  complete(Name,Marker, mCIMeCIM, fill = list(Count = 0)) 
 
 CPO_CIMGroup$Tag<-""
 CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$Marker!="Class A or D Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(+)" & CPO_CIMGroup$eCIM=="(-)",
+  ifelse(CPO_CIMGroup$Marker!="Class A or D" &CPO_CIMGroup$Marker!="Class Unknown" & CPO_CIMGroup$mCIMeCIM=="mCIM(+)/eCIM(-)",
        "Conflict",CPO_CIMGroup$Tag)
 CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$Marker!="Class B Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(+)"&CPO_CIMGroup$eCIM=="(+)",
+  ifelse(CPO_CIMGroup$Marker!="Class B" &CPO_CIMGroup$Marker!="Class Unknown" & CPO_CIMGroup$mCIMeCIM=="mCIM(+)/eCIM(+)",
        "Conflict",CPO_CIMGroup$Tag)
 CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$Marker!="Carbapenemase Producer" & CPO_CIMGroup$mCIM=="(-)"&CPO_CIMGroup$eCIM=="(-)",
+  ifelse(CPO_CIMGroup$Marker!="Negative" & CPO_CIMGroup$mCIMeCIM=="mCIM(-)/eCIM(-)",
        "Conflict",CPO_CIMGroup$Tag)
-CPO_CIMGroup$Tag<-
-  ifelse(CPO_CIMGroup$mCIM=="(-)"&CPO_CIMGroup$eCIM=="(+)",
-       "Error?",CPO_CIMGroup$Tag)
+
 CPO_CIMGroup$Marker<-gsub(" Producer","",CPO_CIMGroup$Marker)
-knitr::kable(CPO_CIMGroup)
+knitr::kable(CPO_CIMGroup %>% filter(Count!=0))
 ```
 
-## Method1: 用Carbapenemase區分，畫三個confusion matrix
 
-### KP
+```{r warning=FALSE, message=FALSE, fig.height=10,fig.width=15}
+#| echo: false
+#CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM
+#CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM
+#CPO_CIMGroup$N<-CPO_CIMGroup$Count
+# (plot_confusion_matrix(CPO_CIMGroup %>% 
+#                          filter(Name=="Klebsiella pneumoniae"&
+#                                   Marker=="Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Carbapenemase"))+
+# (plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class B Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Class B Carbapenemase"))+
+# (plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class A or D Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Class A or D Carbapenemase"))
+#table(CPO_CIMGroup$Name)
+KPCPO<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella pneumoniae*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+KOCPO<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella oxytoca") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella oxytoca*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+KACOP<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella aerogenes") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella aerogenes*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+ECCPO<-
+  CPO_CIMGroup %>% filter(Name=="Escherichia coli") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic('Escherichia coli')))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+ECCCPO<-
+  CPO_CIMGroup %>% filter(Name=="Enterobacter cloacae complex") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Enterobacter cloacae complex*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CKCPO<-
+  CPO_CIMGroup %>% filter(Name=="Citrobacter koseri") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Citrobacter koseri*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CFCCPO<-
+  CPO_CIMGroup %>% filter(Name=="Citrobacter freundii complex") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic('Citrobacter freundii complex')))+
+  theme_classic()#+#mdthemes::md_theme_classic() +
+  #theme(title = ggtext::element_markdown())
+
+KPCPO+KOCPO+KACOP+ECCPO+ECCCPO+CKCPO+CFCCPO
+```
+
+
+# CPO vs. MPCR and CARBA5
+
+!??TBD
+
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM
-CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM
-CPO_CIMGroup$N<-CPO_CIMGroup$Count
-(plot_confusion_matrix(CPO_CIMGroup %>% 
-                         filter(Name=="Klebsiella pneumoniae"&
-                                  Marker=="Carbapenemase"),
-  counts_on_top=TRUE,add_normalized=FALSE)+
-  labs(x="mCIM",y="eCIM",title="Carbapenemase"))+
-(plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class B Carbapenemase"),
-  counts_on_top=TRUE,add_normalized=FALSE)+
-  labs(x="mCIM",y="eCIM",title="Class B Carbapenemase"))+
-(plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class A or D Carbapenemase"),
-  counts_on_top=TRUE,add_normalized=FALSE)+
-  labs(x="mCIM",y="eCIM",title="Class A or D Carbapenemase"))
-
+inner_join(CPO,FinalCM %>% select(-GENE) %>% unique(), 
+           by = c("ID", "SPECIES"))
 ```
-### Other Bact (TBD)
 
-## Method2: 用bar chart取代三個confusion matrix
-```{r warning=FALSE, message=FALSE}
+## Klebsiella pneumoniae
+!??TBD
+```{r warning=F,message=F}
 #| echo: false
-ggplot(CPO_CIMGroup%>% 
-         filter(Name=="Klebsiella pneumoniae"),
-       aes(x=mCIM,y=Count,fill=Tag))+
-  geom_bar(stat="identity",show.legend = FALSE)+
-  facet_grid(paste0("eCIM ",eCIM)~Marker)+
-  labs(x="mCIM")+
-  theme_bw()+
-  scale_fill_manual(values=c("Conflict"="coral1","Error?"="coral4"))
+
 ```
 
-### Other Bact (TBD)
+## Escherichia coli
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
 
-## CPO vs. AST
+```
 
-### Not class B, but Ceftazidime-Avibactam R？
+## Enterobacter cloacae complex
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
+
+```
+
+## CITRO.FREUNDII
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
+
+```
+
+## CITRO.KOSERI
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
+
+```
+
+## K.AEROGENES
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
+
+```
+
+## K.AEROGENES
+!??TBD
+```{r warning=F,message=F}
+#| echo: false
+
+```
+
+# CPO vs. AST
 
 - Not class B, but Ceftazidime-Avibactam R
-- Ertapenem, Imipenem, Meropenem **每個抗生素分開呈現？**: 
-    - MIC vs mCIM/eCIM (TBD)
-    - MIC vs MPCR (TBD)
-    - MIC vs CARBA5 (TBD)
-    - MIC vs CPO (TBD)
+- Ertapenem, Imipenem, Meropenem **每個抗生素分開呈現**: 
+    - MIC vs mCIM/eCIM
+    - MIC vs MPCR
+    - MIC vs CARBA5
+    - MIC vs CPO
     
-- 要分菌株嗎？
+
+## Not class B, but Ceftazidime-Avibactam R
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-ASTCPO<-AST%>%select(B,Name,Marker,Ab,Res) %>% unique() %>% 
-  filter(grepl("^CPO",B)&!is.na(Marker)) %>% 
-  mutate(ID=gsub("CPO-","",B), 
-         Marker=gsub(" Producer","",Marker),
-         MarkerNew=ifelse(Marker=="Carbapenemase","Class Unknown",Marker),
-         Res=ifelse(Res=="S","S","R or I"))
+
 ASTCPOGroup<-
   ASTCPO %>% filter(Ab %in% c("Ceftazidime-Avibactam")) %>%
-  group_by(Name,Marker,MarkerNew,Ab,Res) %>%
+  group_by(Name,Marker,Ab,Res) %>%
   summarise(Count=n())
 knitr::kable(ASTCPOGroup)
 ```
@@ -516,14 +614,77 @@ ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   theme_bw()
 ```
 
-- 換個名字？
+## Ertapenem, Imipenem, Meropenem
+
+### MIC vs. CPO
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
-  ggplot(aes(x=Res,y=Count,label=Count,fill=Name))+
-  geom_bar(stat="identity")+
-  #geom_text()+
-  scale_fill_brewer(palette = "Set1")+
-  facet_grid(.~MarkerNew)+
-  theme_bw()
+MICCPO<-AST %>% select(ID,Name,SPECIES,Tit,Ab,Marker) %>% unique() %>%
+  filter(Ab %in% c("Ertapenem","Imipenem","Meropenem"))
+MICCPO$Marker<-factor(MICCPO$Marker,
+                      levels = c("Negative","Class B","Class Unknown","Class A or D"))
+MICCPO$Tit<-factor(MICCPO$Tit,
+                   levels = c("<=0.25", "0.5","1",">1","2","4","8",">8","16","32"))
+MICCPO %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Meropenem")
+MICCPO %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Imipenem")
+MICCPO %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Ertapenem")
 ```
+### MIC vs. mCIM/eCIM
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MICCPOCIM<-
+  inner_join(MICCPO,CPO_CIM, by = c("ID", "Name", "SPECIES", "Marker"))
+MICCPOCIM$mCIMeCIM<-factor(MICCPOCIM$mCIMeCIM,
+                           levels=c("mCIM(-)/eCIM(-)","mCIM(+)/eCIM(+)","mCIM(+)/eCIM(-)" ))
+MICCPOCIM %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Meropenem")
+MICCPOCIM %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Imipenem")
+MICCPOCIM %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Ertapenem")
+```
+
+### MIC vs. MPCR
+TBD
+
+### MIC vs. CARBA5
+TBD
