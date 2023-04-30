@@ -359,7 +359,7 @@ KAGroup<-
   labs(x="MPCR",y="CARBA5",title="NDM"))
 ```
 
-## K.AEROGENES
+## K.OXYTOCA
 
 ```{r warning=F,message=F}
 #| echo: false
@@ -1401,4 +1401,23 @@ CombineData %>%
   group_by(CPO,CARBA5) %>%
   summarise(Count=n()) %>% knitr::kable()
 
+```
+
+
+```{r warning=F,message=F}
+#| echo: false
+#| eval: false
+# For test
+CombineData %>%
+  filter(grepl("OXA",CARBA5) & CPO=="Class A or D") %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
+CombineData %>%
+  filter(mCIMeCIM=="mCIM(+)/eCIM(+)" & CPO=="Class A or D") %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
+CombineData %>%
+  filter(grepl("OXA",CARBA5) & grepl("OXA",MPCR)) %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
 ```
