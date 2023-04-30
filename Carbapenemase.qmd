@@ -103,11 +103,11 @@ FinalCM<-FinalCM%>%filter(!is.na(MPCR))
 lev<-c("OXA","KPC","KPC+OXA","VIM","IMP","NDM",
        "NDM+VIM","NDM+IMP",
        "OXA+VIM","OXA+IMP","OXA+NDM",
-       "KPC+OXA+NDM","KPC+IMP","KPC+NDM"
+       "KPC+OXA+NDM","KPC+IMP","KPC+NDM","Negative"
        )
 levGENE<-c("OXA","KPC+OXA","OXA+VIM","OXA+IMP","OXA+NDM","KPC+OXA+NDM",
            "KPC","KPC+IMP","KPC+NDM",
-           "VIM","NDM+VIM","IMP","NDM","NDM+IMP"
+           "VIM","NDM+VIM","IMP","NDM","NDM+IMP","Negative"
        )
 #FinalCM$GENE<-factor(FinalCM$GENE,levels=lev)
 ```
@@ -138,7 +138,7 @@ HugeGENE %>% filter(SPECIES=="KP") %>%
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   theme_classic()+
-  labs(x="MPCR",y="CARBA",title=expression(italic('Klebsiella pneumoniae')))+
+  labs(x="MPCR",y="CARBA5",title=expression(italic('Klebsiella pneumoniae')))+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")
 ```
 
@@ -411,10 +411,17 @@ KOGroup<-
 AST<-read_csv("20230307_CPO_BD_AST.csv")
 AST<-AST %>% filter(grepl("CPO-",B)&Res!="X")%>%
   mutate(ID=gsub("CPO-","",B), 
+         MarkerOld=Marker,
          Marker=ifelse(grepl("Class A|Class D",Marker),
                        "Class A or D",
                        ifelse(Marker=="Carbapenemase Producer","Class Unknown",
                               ifelse(grepl("Class B",Marker),"Class B",Marker))), 
+         MarkerOld=ifelse(grepl("Class A",MarkerOld),
+                       "Class A",
+                       ifelse(grepl("Class D",MarkerOld),
+                       "Class D",
+                       ifelse(MarkerOld=="Carbapenemase Producer","Class Unknown",
+                              ifelse(grepl("Class B",MarkerOld),"Class B",MarkerOld)))),
          Res=ifelse(Res=="S","S","R or I"))
 AST$Marker<-ifelse(is.na(AST$Marker),"Negative",AST$Marker)
 AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
@@ -428,10 +435,10 @@ AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
 
 AST<-AST %>% filter(!(ID=="32968" &Marker=="Negative"))
 
-AST_MPCR<-inner_join(AST,FinalCM,by=c("ID","SPECIES"))
-AST_MPCRGroup<-
-  AST_MPCR %>% group_by(MPCR,CARBA5,Ab,Res) %>%
-  summarise(Count=n())
+#AST_MPCR<-inner_join(AST,FinalCM,by=c("ID","SPECIES"))
+#AST_MPCRGroup<-
+#  AST_MPCR %>% group_by(MPCR,CARBA5,Ab,Res,GENE) %>%
+#  summarise(Count=n())
 ASTCPO<-AST%>%select(ID,Name,SPECIES,Marker,Ab,Res) %>% unique() 
 CPO<-
   AST%>%select(ID,Name,SPECIES,Marker) %>% unique() %>% 
@@ -456,7 +463,18 @@ CIMAll<-CIMAll %>% filter(!is.na(mCIM)&!is.na(eCIM)&eCIM!=2&mCIM!="#REF!")
 #table(CIMAll$mCIM)
 CIMAll$mCIM<-ifelse(CIMAll$mCIM==0,"(-)","(+)")
 CIMAll$eCIM<-ifelse(CIMAll$eCIM==0,"(-)","(+)")
-CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism"))
+CIMAll$mCIMeCIM<-paste0("mCIM",CIMAll$mCIM,"/eCIM",CIMAll$eCIM)
+CIMAll<-CIMAll %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
+CIMAll$SPECIES<-ifelse(CIMAll$Organism=="Klebsiella pneumoniae","KP",
+                    ifelse(CIMAll$Organism=="Klebsiella oxytoca","K.OXYTOCA",
+                           ifelse(CIMAll$Organism=="Klebsiella aerogenes","K.AEROGENES",
+                                  ifelse(CIMAll$Organism=="Escherichia coli","EC",
+                                         ifelse(CIMAll$Organism=="Enterobacter cloacae complex","ENT.CLOACAE",
+                                                ifelse(CIMAll$Organism=="Citrobacter koseri","CITRO.KOSERI",
+                                                       ifelse(CIMAll$Organism=="Citrobacter freundii complex","CITRO.FREUNDII",
+                                                              CIMAll$Organism)))))))
+
+CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism","SPECIES"))
 ```
 
 -   mCIM-eCIM- =\> no carbapenemase detected
@@ -466,8 +484,8 @@ CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism"))
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO_CIM$mCIMeCIM<-paste0("mCIM",CPO_CIM$mCIM,"/eCIM",CPO_CIM$eCIM)
-CPO_CIM<-CPO_CIM %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
+#CPO_CIM$mCIMeCIM<-paste0("mCIM",CPO_CIM$mCIM,"/eCIM",CPO_CIM$eCIM)
+#CPO_CIM<-CPO_CIM %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
 CPO_CIMGroup<-
   CPO_CIM %>%
   group_by(Name,Marker,mCIMeCIM) %>%
@@ -581,6 +599,13 @@ CPOMPCR<-
   CPOGENE%>% select(ID,Name,Marker,MPCR,GENE) %>%
   filter(MPCR==1) %>% group_by(ID,Marker,Name) %>%
   summarise(GENEGroup=paste0(GENE, collapse = "+"))
+CPOMPCRNeg<-
+  CPOGENE%>% select(ID,Name,Marker) %>% unique() %>%
+  anti_join(.,CPOMPCR)
+CPOMPCRNeg$GENEGroup<-"Negative"
+#CPOMPCRNeg %>% filter(ID %in% CPOMPCR$ID) # should be 0
+CPOMPCRAll<-rbind(CPOMPCR,CPOMPCRNeg)
+CPOMPCRAll$GENEGroup<-factor(CPOMPCRAll$GENEGroup,levels = rev(lev))
 CPOMPCR$GENEGroup<-factor(CPOMPCR$GENEGroup,levels = rev(lev))
 CPOMPCR$GENENew<-
   ifelse(CPOMPCR$GENEGroup %in% c("KPC","OXA","KPC+OXA"),
@@ -589,6 +614,15 @@ CPOMPCR$GENENew<-
          "IMP/NDM/VIM","Others"))
 CPOMPCR$GENENew<-factor(CPOMPCR$GENENew,
                         levels = rev(c("KPC/OXA","IMP/NDM/VIM","Others")))
+CPOMPCRAll$GENENew<-
+  ifelse(CPOMPCRAll$GENEGroup %in% c("KPC","OXA","KPC+OXA"),
+         "KPC/OXA",
+         ifelse(CPOMPCRAll$GENEGroup %in% c("IMP","NDM","VIM","NDM+VIM"),
+         "IMP/NDM/VIM",
+         ifelse(CPOMPCRAll$GENEGroup=="Negative","Negative","Others")))
+CPOMPCRAll$GENENew<-factor(CPOMPCRAll$GENENew,
+                        levels = rev(c("KPC/OXA","IMP/NDM/VIM","Others","Negative")))
+
 #CPOMPCR %>% group_by(ID) %>% summarise(Count=n()) %>% arrange(desc(Count)) should be 0
 CPOMPCRGrpup<-
   CPOMPCR %>% group_by(GENEGroup,GENENew,Marker) %>%
@@ -1066,6 +1100,7 @@ CPOCARBA5 %>% filter(Name=="Klebsiella oxytoca")%>%
   theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Klebsiella oxytoca')))
 ```
 
+
 # CPO vs. AST
 
 -   Not class B, but Ceftazidime-Avibactam R
@@ -1097,6 +1132,7 @@ ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   facet_grid(.~Marker)+
   theme_bw()
 ```
+
 
 ## Ertapenem, Imipenem, Meropenem
 
@@ -1151,7 +1187,7 @@ MICCPOCIM %>% filter(Ab=="Meropenem") %>%
   geom_tile()+geom_text()+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
-  labs(x="MIC",y="CPO",title="Meropenem")
+  labs(x="MIC",y="mCIM/eCIM",title="Meropenem")
 MICCPOCIM %>% filter(Ab=="Imipenem") %>%
   group_by(Tit,mCIMeCIM) %>%
   summarise(Count=n())%>%
@@ -1159,7 +1195,7 @@ MICCPOCIM %>% filter(Ab=="Imipenem") %>%
   geom_tile()+geom_text()+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
-  labs(x="MIC",y="CPO",title="Imipenem")
+  labs(x="MIC",y="mCIM/eCIM",title="Imipenem")
 MICCPOCIM %>% filter(Ab=="Ertapenem") %>%
   group_by(Tit,mCIMeCIM) %>%
   summarise(Count=n())%>%
@@ -1167,15 +1203,15 @@ MICCPOCIM %>% filter(Ab=="Ertapenem") %>%
   geom_tile()+geom_text()+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
-  labs(x="MIC",y="CPO",title="Ertapenem")
+  labs(x="MIC",y="mCIM/eCIM",title="Ertapenem")
 ```
 
 ### MIC vs. MPCR
-
+20230430
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 MICCPOMPCR<-
-  inner_join(MICCPO,CPOMPCR, by = c("ID", "Name", "Marker"))
+  inner_join(MICCPO,CPOMPCRAll, by = c("ID", "Name", "Marker"))
 
 MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,GENEGroup) %>%
@@ -1300,4 +1336,69 @@ MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
   scale_fill_gradient(low="#F7FBFF",high="#08306B")+
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Ertapenem")
+```
+
+
+
+```{r warning=F,message=F}
+#| echo: false
+## Data combine
+## MPCR vs. CARBA5
+### MPCR
+MPCRFinal<-
+  FinalCM %>% select (-CARBA5) %>% filter(MPCR==1) %>%
+  group_by(ID,SPECIES) %>% pivot_wider(names_from="GENE",values_from="MPCR") %>%
+  mutate(KPC=ifelse(KPC==1,"KPC",NA),
+         OXA=ifelse(OXA==1,"OXA",NA),
+         NDM=ifelse(NDM==1,"NDM",NA),
+         VIM=ifelse(VIM==1,"VIM",NA),
+         IMP=ifelse(IMP==1,"IMP",NA)) %>%
+  unite(.,col="MPCR",KPC,OXA,NDM,VIM,IMP, na.rm=TRUE, sep=",")
+### CARBA5
+CARBA5Final<-
+  FinalCM %>% select (-MPCR) %>% filter(CARBA5==1) %>%
+  group_by(ID,SPECIES) %>% pivot_wider(names_from="GENE",values_from="CARBA5") %>%
+  mutate(KPC=ifelse(KPC==1,"KPC",NA),
+         OXA=ifelse(OXA==1,"OXA",NA),
+         NDM=ifelse(NDM==1,"NDM",NA),
+         VIM=ifelse(VIM==1,"VIM",NA),
+         IMP=ifelse(IMP==1,"IMP",NA)) %>%
+  unite(.,col="CARBA5",KPC,OXA,NDM,VIM,IMP, na.rm=TRUE, sep="+")
+
+## CPO vs. CIM
+CIMFinal<-CIMAll %>% select(ID,SPECIES,mCIMeCIM)
+CPOFinal<-CPO %>% select(ID,SPECIES,Marker) %>% rename(CPO=Marker)
+
+
+CombineData<-
+  full_join(MPCRFinal,CARBA5Final) %>%
+  full_join(.,CIMFinal) %>%
+  full_join(.,CPOFinal)
+write_csv(CombineData,"CombineData.csv")
+
+```
+# PCR vs. AST
+
+20230430 How to group?
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MPCRAST<-inner_join(MPCRFinal,
+           AST %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+             select(ID,Name,Ab,Res))
+MPCRAST %>% group_by(SPECIES,MPCR,Ab,Res) %>%
+  summarise(Count=n())%>% knitr::kable()
+  
+```
+# PCR+, CPO vs. CARBA5
+all SPECIES
+20230430
+CPO NA -> no results in file.
+```{r warning=F,message=F}
+#| echo: false
+CombineData %>%
+  filter(!is.na(MPCR)) %>%
+  group_by(CPO,CARBA5) %>%
+  summarise(Count=n()) %>% knitr::kable()
+
 ```
