@@ -21,6 +21,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -67,11 +130,49 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="firstall-vs.-conventional" class="level1">
-<h1>FirstAll vs.&nbsp;Conventional</h1>
 <div class="cell">
 
 </div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<p><strong>List of analyses</strong>:</p>
+<ul>
+<li>FirstAll vs.&nbsp;Conventional <a href="#firstall-vs.-conventional">link</a></li>
+<li>CPO vs.&nbsp;mCIMeCIM <a href="#cpo-vs.-mcimecim">link</a></li>
+<li>CPO vs.&nbsp;MPCR <a href="#cpo-vs.-mpcr">link</a></li>
+<li>CPO vs.&nbsp;CARBA5 <a href="#cpo-vs.-carba5">link</a></li>
+<li>CPO vs.&nbsp;AST <a href="#cpo-vs.-ast">link</a></li>
+<li>MPCR vs.&nbsp;AST <a href="#mpcr-vs.-ast">link</a></li>
+<li>All vs.&nbsp;MIC <a href="#all-vs.-mic">link</a></li>
+<li>MPCR vs.&nbsp;CARBA5 <a href="#mpcr-vs.-carba5">link</a></li>
+<li>PCR positive- CPO vs.&nbsp;CARBA5 <a href="#pcr-positive--cpo-vs.-carba5">link</a></li>
+</ul>
+<p><strong>CIM grouping</strong>:</p>
+<ul>
+<li>mCIM-eCIM- =&gt; no carbapenemase detected</li>
+<li>mCIM+eCIM- =&gt; class A or D</li>
+<li>mCIM-eCIM+ =&gt; lab error? should be rechecked</li>
+<li>mCIM+eCIM+ =&gt; classB</li>
+</ul>
+<p><strong>MPCR &amp; CARBA5 grouping</strong>:</p>
+<ul>
+<li>單一KPC或OXA：對應KPC/OXA</li>
+<li>單一NDM或VIM或IMP：對應IMP/NDM/VIM</li>
+<li>多樣偵測(e.g.&nbsp;KPC+OXA)：對應Others</li>
+<li>沒有偵測到：對應Negative</li>
+</ul>
+<section id="firstall-vs.-conventional" class="level1">
+<h1>FirstAll vs.&nbsp;Conventional</h1>
 <div class="cell">
 
 </div>
@@ -91,103 +192,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="384"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 </section>
-<section id="mpcr-vs.-carba5" class="level1">
-<h1>MPCR vs.&nbsp;CARBA5</h1>
-<div class="cell">
-
-</div>
-<div class="cell">
-
-</div>
-<section id="klebsiella-pneumoniae" class="level2">
-<h2 class="anchored" data-anchor-id="klebsiella-pneumoniae">Klebsiella pneumoniae</h2>
-<ul>
-<li>Add GENE combination (<strong>first try</strong>)</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Single Gene</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="escherichia-coli" class="level2">
-<h2 class="anchored" data-anchor-id="escherichia-coli">Escherichia coli</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="enterobacter-cloacae-complex" class="level2">
-<h2 class="anchored" data-anchor-id="enterobacter-cloacae-complex">Enterobacter cloacae complex</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="citro.freundii" class="level2">
-<h2 class="anchored" data-anchor-id="citro.freundii">CITRO.FREUNDII</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="citro.koseri" class="level2">
-<h2 class="anchored" data-anchor-id="citro.koseri">CITRO.KOSERI</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="k.aerogenes" class="level2">
-<h2 class="anchored" data-anchor-id="k.aerogenes">K.AEROGENES</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="k.oxytoca" class="level2">
-<h2 class="anchored" data-anchor-id="k.oxytoca">K.OXYTOCA</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-
-</div>
-<div class="cell">
-
-</div>
-</section>
-</section>
-<section id="cpo-mcim-and-ecim-firstall" class="level1">
-<h1>CPO, mCIM, and eCIM (FirstAll)</h1>
-<div class="cell">
-
-</div>
-<ul>
-<li>mCIM-eCIM- =&gt; no carbapenemase detected</li>
-<li>mCIM+eCIM- =&gt; class A or D</li>
-<li>mCIM-eCIM+ =&gt; lab error? should be rechecked</li>
-<li>mCIM+eCIM+ =&gt; classB</li>
-</ul>
+<section id="cpo-vs.-mcimecim" class="level1">
+<h1>CPO vs.&nbsp;mCIMeCIM</h1>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -201,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
-<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">CPO</th>
 <th style="text-align: left;">mCIMeCIM</th>
 <th style="text-align: right;">Count</th>
 <th style="text-align: left;">Tag</th>
@@ -218,16 +228,16 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td style="text-align: left;">Citrobacter freundii complex</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Citrobacter freundii complex</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Citrobacter freundii complex</td>
@@ -267,30 +277,30 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Enterobacter cloacae complex</td>
 <td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Enterobacter cloacae complex</td>
-<td style="text-align: left;">Class A or D</td>
 <td style="text-align: left;">mCIM(+)/eCIM(+)</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">Conflict</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Enterobacter cloacae complex</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Conflict</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class A or D</td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Enterobacter cloacae complex</td>
 <td style="text-align: left;">Class B</td>
 <td style="text-align: left;">mCIM(+)/eCIM(+)</td>
 <td style="text-align: right;">10</td>
 <td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enterobacter cloacae complex</td>
+<td style="text-align: left;">Class B</td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Enterobacter cloacae complex</td>
@@ -323,16 +333,16 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Escherichia coli</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Escherichia coli</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Escherichia coli</td>
@@ -421,16 +431,16 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
-<td style="text-align: right;">22</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
@@ -442,16 +452,16 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">Conflict</td>
+<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class B</td>
-<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Conflict</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
@@ -463,15 +473,15 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
-<td style="text-align: right;">43</td>
+<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
+<td style="text-align: right;">27</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Klebsiella pneumoniae</td>
 <td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">mCIM(+)/eCIM(+)</td>
-<td style="text-align: right;">27</td>
+<td style="text-align: left;">mCIM(+)/eCIM(-)</td>
+<td style="text-align: right;">43</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
@@ -487,7 +497,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="1440"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="1440"></p>
 </div>
 </div>
 </section>
@@ -498,13 +508,37 @@ ul.task-list li input[type="checkbox"] {
 <table class="table table-sm table-striped">
 <thead>
 <tr class="header">
-<th style="text-align: left;">GENEGroup</th>
-<th style="text-align: left;">GENENew</th>
-<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">MPCR</th>
+<th style="text-align: left;">MPCRGroup</th>
+<th style="text-align: left;">CPO</th>
 <th style="text-align: right;">Count</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Class A or D</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Class B</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Class Unknown</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Negative</td>
+<td style="text-align: left;">Negative</td>
+<td style="text-align: right;">131</td>
+</tr>
 <tr class="odd">
 <td style="text-align: left;">KPC+NDM</td>
 <td style="text-align: left;">Others</td>
@@ -585,7 +619,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td style="text-align: left;">NDM+VIM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
+<td style="text-align: left;">Others</td>
 <td style="text-align: left;">Class B</td>
 <td style="text-align: right;">1</td>
 </tr>
@@ -651,19 +685,19 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
+<td style="text-align: left;">Others</td>
 <td style="text-align: left;">Class A or D</td>
 <td style="text-align: right;">15</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
+<td style="text-align: left;">Others</td>
 <td style="text-align: left;">Class Unknown</td>
 <td style="text-align: right;">2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
+<td style="text-align: left;">Others</td>
 <td style="text-align: left;">Negative</td>
 <td style="text-align: right;">15</td>
 </tr>
@@ -719,7 +753,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -727,14 +761,142 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="klebsiella-pneumoniae" class="level2">
+<h2 class="anchored" data-anchor-id="klebsiella-pneumoniae">Klebsiella pneumoniae</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="escherichia-coli" class="level2">
+<h2 class="anchored" data-anchor-id="escherichia-coli">Escherichia coli</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="enterobacter-cloacae-complex" class="level2">
+<h2 class="anchored" data-anchor-id="enterobacter-cloacae-complex">Enterobacter cloacae complex</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="citro.freundii" class="level2">
+<h2 class="anchored" data-anchor-id="citro.freundii">CITRO.FREUNDII</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="citro.koseri" class="level2">
+<h2 class="anchored" data-anchor-id="citro.koseri">CITRO.KOSERI</h2>
+<div class="cell">
+<div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="k.aerogenes" class="level2">
+<h2 class="anchored" data-anchor-id="k.aerogenes">K.AEROGENES</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="k.oxytoca" class="level2">
+<h2 class="anchored" data-anchor-id="k.oxytoca">K.oxytoca</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="cpo-vs.-carba5" class="level1">
+<h1>CPO vs.&nbsp;CARBA5</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Gene grouping</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="klebsiella-pneumoniae-1" class="level2">
 <h2 class="anchored" data-anchor-id="klebsiella-pneumoniae-1">Klebsiella pneumoniae</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -742,7 +904,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -750,7 +912,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="escherichia-coli-1">Escherichia coli</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -758,7 +920,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -766,7 +928,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="enterobacter-cloacae-complex-1">Enterobacter cloacae complex</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-70-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -774,7 +936,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-72-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -782,7 +944,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="citro.freundii-1">CITRO.FREUNDII</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-74-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -790,7 +952,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-76-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -798,7 +960,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="citro.koseri-1">CITRO.KOSERI</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-78-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -806,7 +968,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-80-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -814,7 +976,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="k.aerogenes-1">K.AEROGENES</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-82-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -822,7 +984,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-70-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-84-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -830,307 +992,15 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="k.oxytoca-1">K.oxytoca</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-72-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-74-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-</section>
-<section id="cpo-vs.-carba-5" class="level1">
-<h1>CPO vs.&nbsp;CARBA 5</h1>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">GENEGroup</th>
-<th style="text-align: left;">GENENew</th>
-<th style="text-align: left;">Marker</th>
-<th style="text-align: right;">Count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">KPC+NDM</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KPC+NDM</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KPC+IMP</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NDM+IMP</td>
-<td style="text-align: left;">Others</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NDM+VIM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">11</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Negative</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">22</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">VIM</td>
-<td style="text-align: left;">IMP/NDM/VIM</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">31</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">53</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: right;">65</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class B</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">KPC/OXA</td>
-<td style="text-align: left;">Negative</td>
-<td style="text-align: right;">4</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-76-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-78-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<section id="klebsiella-pneumoniae-2" class="level2">
-<h2 class="anchored" data-anchor-id="klebsiella-pneumoniae-2">Klebsiella pneumoniae</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-80-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-82-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="escherichia-coli-2" class="level2">
-<h2 class="anchored" data-anchor-id="escherichia-coli-2">Escherichia coli</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-84-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-86-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="enterobacter-cloacae-complex-2" class="level2">
-<h2 class="anchored" data-anchor-id="enterobacter-cloacae-complex-2">Enterobacter cloacae complex</h2>
+<ul>
+<li>Gene grouping</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-88-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-90-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="citro.freundii-2" class="level2">
-<h2 class="anchored" data-anchor-id="citro.freundii-2">CITRO.FREUNDII</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-92-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-94-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="citro.koseri-2" class="level2">
-<h2 class="anchored" data-anchor-id="citro.koseri-2">CITRO.KOSERI</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-96-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-98-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="k.aerogenes-2" class="level2">
-<h2 class="anchored" data-anchor-id="k.aerogenes-2">K.AEROGENES</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-100-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-102-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="k.oxytoca-2" class="level2">
-<h2 class="anchored" data-anchor-id="k.oxytoca-2">K.oxytoca</h2>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Gene grouping</li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-106-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1139,13 +1009,6 @@ ul.task-list li input[type="checkbox"] {
 <h1>CPO vs.&nbsp;AST</h1>
 <ul>
 <li>Not class B, but Ceftazidime-Avibactam R</li>
-<li>Ertapenem, Imipenem, Meropenem <strong>每個抗生素分開呈現</strong>:
-<ul>
-<li>MIC vs mCIM/eCIM</li>
-<li>MIC vs MPCR</li>
-<li>MIC vs CARBA5</li>
-<li>MIC vs CPO</li>
-</ul></li>
 </ul>
 <section id="not-class-b-but-ceftazidime-avibactam-r" class="level2">
 <h2 class="anchored" data-anchor-id="not-class-b-but-ceftazidime-avibactam-r">Not class B, but Ceftazidime-Avibactam R</h2>
@@ -1162,7 +1025,7 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
-<th style="text-align: left;">Marker</th>
+<th style="text-align: left;">CPO</th>
 <th style="text-align: left;">Ab</th>
 <th style="text-align: left;">Res</th>
 <th style="text-align: right;">Count</th>
@@ -1420,637 +1283,233 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-110-1.png" class="img-fluid" width="672"></p>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-92-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="ertapenem-imipenem-meropenem" class="level2">
-<h2 class="anchored" data-anchor-id="ertapenem-imipenem-meropenem">Ertapenem, Imipenem, Meropenem</h2>
-<section id="mic-vs.-cpo" class="level3">
-<h3 class="anchored" data-anchor-id="mic-vs.-cpo">MIC vs.&nbsp;CPO</h3>
+</section>
+<section id="mpcr-vs.-ast" class="level1">
+<h1>MPCR vs.&nbsp;AST</h1>
+<p>20230502</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-94-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="all-vs.-mic" class="level1">
+<h1>All vs.&nbsp;MIC</h1>
+<ul>
+<li>Ertapenem, Imipenem, Meropenem <strong>每個抗生素分開呈現</strong>:
+<ul>
+<li>MIC vs mCIM/eCIM</li>
+<li>MIC vs MPCR</li>
+<li>MIC vs CARBA5</li>
+<li>MIC vs CPO</li>
+</ul></li>
+<li>Add Ceftazidime-Avibactam 20230502</li>
+</ul>
+<section id="mic-vs.-cpo" class="level2">
+<h2 class="anchored" data-anchor-id="mic-vs.-cpo">MIC vs.&nbsp;CPO</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-96-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-96-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-96-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-96-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="mic-vs.-mcimecim" class="level2">
+<h2 class="anchored" data-anchor-id="mic-vs.-mcimecim">MIC vs.&nbsp;mCIM/eCIM</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-98-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-98-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-98-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-98-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="mic-vs.-mpcr" class="level2">
+<h2 class="anchored" data-anchor-id="mic-vs.-mpcr">MIC vs.&nbsp;MPCR</h2>
+<p>20230430</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-100-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-100-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-100-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-100-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="gene-grouping" class="level3">
+<h3 class="anchored" data-anchor-id="gene-grouping">Gene grouping</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-102-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-102-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-102-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-102-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="mic-vs.-carba5" class="level2">
+<h2 class="anchored" data-anchor-id="mic-vs.-carba5">MIC vs.&nbsp;CARBA5</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-104-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-104-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-104-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="gene-grouping-1" class="level3">
+<h3 class="anchored" data-anchor-id="gene-grouping-1">Gene grouping</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-106-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-106-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-106-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-106-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="mpcr-vs.-carba5" class="level1">
+<h1>MPCR vs.&nbsp;CARBA5</h1>
+<div class="cell">
+
+</div>
+<section id="klebsiella-pneumoniae-2" class="level2">
+<h2 class="anchored" data-anchor-id="klebsiella-pneumoniae-2">Klebsiella pneumoniae</h2>
+<ul>
+<li>Grouping (<strong>first try</strong>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#| echo: false</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    CARBA5_MPCR <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SPECIES<span class="sc">==</span><span class="st">"KP"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(CARBA5Group,MPCRGroup) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">Count=</span><span class="fu">n</span>())<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>MPCRGroup,<span class="at">y=</span>CARBA5Group,<span class="at">fill=</span>Count,<span class="at">label=</span>Count))<span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_tile</span>()<span class="sc">+</span><span class="fu">geom_text</span>()<span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_x_discrete</span>(<span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">n.dodge=</span><span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"MPCR"</span>,<span class="at">y=</span><span class="st">"CARBA5"</span>,<span class="at">title=</span><span class="fu">expression</span>(<span class="fu">italic</span>(<span class="st">'Klebsiella pneumoniae'</span>)))<span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"#F7FBFF"</span>,<span class="at">high=</span><span class="st">"#08306B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-110-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Multiple genes (<strong>first try</strong>)</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-112-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-112-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-112-3.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="mic-vs.-mcimecim" class="level3">
-<h3 class="anchored" data-anchor-id="mic-vs.-mcimecim">MIC vs.&nbsp;mCIM/eCIM</h3>
+<ul>
+<li>Single Gene</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-114-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-114-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-114-3.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 </section>
-<section id="mic-vs.-mpcr" class="level3">
-<h3 class="anchored" data-anchor-id="mic-vs.-mpcr">MIC vs.&nbsp;MPCR</h3>
-<p>20230430</p>
+<section id="escherichia-coli-2" class="level2">
+<h2 class="anchored" data-anchor-id="escherichia-coli-2">Escherichia coli</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-116-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-116-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-116-3.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<section id="gene-grouping" class="level4">
-<h4 class="anchored" data-anchor-id="gene-grouping">Gene grouping</h4>
+</section>
+<section id="enterobacter-cloacae-complex-2" class="level2">
+<h2 class="anchored" data-anchor-id="enterobacter-cloacae-complex-2">Enterobacter cloacae complex</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-118-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-118-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-118-3.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 </section>
-</section>
-<section id="mic-vs.-carba5" class="level3">
-<h3 class="anchored" data-anchor-id="mic-vs.-carba5">MIC vs.&nbsp;CARBA5</h3>
+<section id="citro.freundii-2" class="level2">
+<h2 class="anchored" data-anchor-id="citro.freundii-2">CITRO.FREUNDII</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-120-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-120-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-120-3.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<section id="gene-grouping-1" class="level4">
-<h4 class="anchored" data-anchor-id="gene-grouping-1">Gene grouping</h4>
+</section>
+<section id="citro.koseri-2" class="level2">
+<h2 class="anchored" data-anchor-id="citro.koseri-2">CITRO.KOSERI</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Carbapenemase_files/figure-html/unnamed-chunk-122-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-122-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-122-3.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-
 </div>
 </section>
-</section>
-</section>
-</section>
-<section id="pcr-vs.-ast" class="level1">
-<h1>PCR vs.&nbsp;AST</h1>
-<p>20230430 How to group?</p>
+<section id="k.aerogenes-2" class="level2">
+<h2 class="anchored" data-anchor-id="k.aerogenes-2">K.AEROGENES</h2>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">SPECIES</th>
-<th style="text-align: left;">MPCR</th>
-<th style="text-align: left;">Ab</th>
-<th style="text-align: left;">Res</th>
-<th style="text-align: right;">Count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">KPC,OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">NDM,VIM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">OXA,IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">OXA,IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.FREUNDII</td>
-<td style="text-align: left;">OXA,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.KOSERI</td>
-<td style="text-align: left;">KPC,OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CITRO.KOSERI</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CITRO.KOSERI</td>
-<td style="text-align: left;">OXA,IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">11</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">KPC,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EC</td>
-<td style="text-align: left;">VIM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">KPC,IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">KPC,OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENT.CLOACAE</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">K.AEROGENES</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">K.AEROGENES</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">K.OXYTOCA</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">K.OXYTOCA</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">K.OXYTOCA</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">K.OXYTOCA</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">K.OXYTOCA</td>
-<td style="text-align: left;">VIM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">74</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC,OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC,OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">KPC,OXA,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">16</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">57</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA,IMP</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA,NDM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">S</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">OXA,VIM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">KP</td>
-<td style="text-align: left;">VIM</td>
-<td style="text-align: left;">Ceftazidime-Avibactam</td>
-<td style="text-align: left;">R or I</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-124-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="pcr-cpo-vs.-carba5" class="level1">
-<h1>PCR+, CPO vs.&nbsp;CARBA5</h1>
-<p>all SPECIES 20230430 CPO NA -&gt; no results in file.</p>
+<section id="k.oxytoca-2" class="level2">
+<h2 class="anchored" data-anchor-id="k.oxytoca-2">K.OXYTOCA</h2>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">CPO</th>
-<th style="text-align: left;">CARBA5</th>
-<th style="text-align: right;">Count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: right;">28</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: right;">65</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class A or D</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">KPC+NDM</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: right;">24</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">NDM+IMP</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">NDM+VIM</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">VIM</td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class B</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">IMP</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">KPC</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">KPC+IMP</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">KPC+NDM</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">KPC+OXA</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: right;">11</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">OXA+NDM</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Class Unknown</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Negative</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Negative</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Negative</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NDM</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">OXA</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-126-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="pcr-positive--cpo-vs.-carba5" class="level1">
+<h1>PCR positive- CPO vs.&nbsp;CARBA5</h1>
+<p>all SPECIES 20230502 CPO NA -&gt; no results in file.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Carbapenemase_files/figure-html/unnamed-chunk-128-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">

@@ -1,0 +1,1456 @@
+---
+title: "Carbapenemase Project - backup"
+format: html
+author: "Yi-Ju Tseng"
+editor: visual
+---
+
+# FirstAll vs. Conventional
+
+```{r, message=FALSE, warning=FALSE}
+#| echo: false
+library(readxl)
+library(tidyverse)
+library(cvms)
+library(patchwork)
+```
+
+```{r, message=FALSE, warning=FALSE}
+#| echo: false
+df.bd = read_excel("20221115_CPO_BD_KP.xlsx",sheet = "Raw")[,1:10]
+df.w = read_excel("20221116_CPO_WANG_KP.xlsx",sheet = "KP")
+```
+
+```{r}
+#| echo: false
+########################################
+#pre-processing
+########################################
+df.bd$ID = df.bd$ID %>% 
+  str_sub(start = 5,end = 12)
+
+df.bd = df.bd %>% 
+  filter(BAC %in% c("Klebsiella pneumoniae"))
+
+df.w$ID=df.w$ID %>% as.character()
+```
+
+```{r}
+#| echo: false
+########################################
+#merge
+########################################
+df.merge = left_join(df.bd,df.w,by = "ID")
+df.merge$mCIM.y = df.merge$mCIM.y %>% 
+  str_replace(pattern = "\\+", 
+              replacement = "1") %>% 
+  str_replace( pattern = "\\-", 
+              replacement = "0")
+df.merge$eCIM.y = df.merge$eCIM.y %>% 
+  str_replace(pattern = "\\+", 
+              replacement = "1") %>% 
+  str_replace( pattern = "\\-", 
+              replacement = "0")
+```
+
+```{r}
+#| echo: false
+########################################
+#stats
+########################################
+#df.merge<-df.merge %>% rename(Conventional=mCIM.x,FirstAll=mCIM.y)
+#mat=cbind(df.merge$mCIM.x,df.merge$mCIM.y) %>% as.data.frame()
+#colnames(mat) = c("Conventional","FirstAll")
+df.merge=df.merge %>% 
+  filter(mCIM.x %in% c(0,1)) %>% 
+  filter(mCIM.y %in% c(0,1))
+df.merge$mCIM.x<-ifelse(df.merge$mCIM.x==0,"(-)","(+)")
+df.merge$mCIM.y<-ifelse(df.merge$mCIM.y==0,"(-)","(+)")
+df.merge$eCIM.x<-ifelse(df.merge$eCIM.x==0,"(-)","(+)")
+df.merge$eCIM.y<-ifelse(df.merge$eCIM.y==0,"(-)","(+)")
+mCIM.comp=table(df.merge$mCIM.x,df.merge$mCIM.y) 
+dimnames(mCIM.comp)[[1]]<-c("Conventional-mCIM(-)","Conventional-mCIM(+)")
+dimnames(mCIM.comp)[[2]]<-c("FirstAll-mCIM(-)","FirstAll-mCIM(+)")
+mCIM.comp
+# write.csv(mCIM.comp,"mCIM.comp_KP.csv",row.names = TRUE)
+```
+
+```{r warning=FALSE,fig.height=4,fig.width=4}
+#| echo: false
+
+eval <- evaluate(
+  data = df.merge,
+  target_col = "mCIM.x",
+  prediction_cols = "mCIM.y",
+  type="binomial",
+  positive = "(+)"
+)
+plot_confusion_matrix(eval,
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="Conventional",y="FirstAll")
+ggsave("Con_vs_FirstAll.pdf",device = "pdf",width = 4,height = 4)
+```
+
+# MPCR vs. CARBA5
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+#MixTable <- read_excel("CONFUSION MATRIX TABLE.xlsx", 
+#    sheet = "Mix")
+#MixTable$ID<-as.character(MixTable$ID)
+source("Carbapenemase.R")
+FinalCM<-FinalCM%>%filter(!is.na(MPCR))
+lev<-c("OXA","KPC","KPC+OXA","VIM","IMP","NDM",
+       "NDM+VIM","NDM+IMP",
+       "OXA+VIM","OXA+IMP","OXA+NDM",
+       "KPC+OXA+NDM","KPC+IMP","KPC+NDM","Negative"
+       )
+levGENE<-c("OXA","KPC+OXA","OXA+VIM","OXA+IMP","OXA+NDM","KPC+OXA+NDM",
+           "KPC","KPC+IMP","KPC+NDM",
+           "VIM","NDM+VIM","IMP","NDM","NDM+IMP","Negative"
+       )
+#FinalCM$GENE<-factor(FinalCM$GENE,levels=lev)
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+HugeMPCR<-FinalCM%>%filter(MPCR==1) %>%
+  group_by(ID,SPECIES) %>%
+  summarise(MPCRGroup=paste0(GENE,collapse = "+"))
+HugeMPCR$MPCRGroup<-factor(HugeMPCR$MPCRGroup,levels = rev(levGENE))
+HugeCARBA<-FinalCM%>%filter(CARBA5==1) %>%
+  group_by(ID,SPECIES) %>%
+  summarise(CARBAGroup=paste0(GENE,collapse = "+"))
+HugeCARBA$CARBAGroup<-factor(HugeCARBA$CARBAGroup,levels = rev(levGENE))
+HugeGENE<-inner_join(HugeCARBA,HugeMPCR, by = c("ID","SPECIES"))
+```
+
+## Klebsiella pneumoniae
+
+-   Add GENE combination (**first try**)
+
+```{r warning=F,message=F}
+#| echo: false
+HugeGENE %>% filter(SPECIES=="KP") %>% 
+  group_by(CARBAGroup,MPCRGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=MPCRGroup,y=CARBAGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  theme_classic()+
+  labs(x="MPCR",y="CARBA5",title=expression(italic('Klebsiella pneumoniae')))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+```
+
+-   Single Gene
+
+```{r warning=F,message=F}
+#| echo: false
+KP<-FinalCM %>% filter(SPECIES=="KP") #1500
+#eval <- evaluate(
+#  data = KP %>% filter(!is.na(MPCR))%>%group_by(GENE),
+#  target_col = "MPCR",
+#  prediction_cols = "CARBA5",
+#  type="binomial",parallel = T
+#)
+KPGroup<-
+  KP %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+
+
+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(KPGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(KPGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+  (plot_confusion_matrix(KPGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+```
+
+## Escherichia coli
+
+```{r warning=F,message=F}
+#| echo: false
+EC<-FinalCM %>% filter(SPECIES=="EC") #1500
+eval <- evaluate(
+  data = EC %>% filter(GENE!="IMP")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+ECGroup<-
+  EC %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+  (plot_confusion_matrix(ECGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(ECGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(ECGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+  (plot_confusion_matrix(ECGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+```
+
+## Enterobacter cloacae complex
+
+```{r warning=F,message=F}
+#| echo: false
+ECC<-FinalCM %>% filter(SPECIES=="ENT.CLOACAE") #1500
+eval <- evaluate(
+  data = ECC %>% filter(GENE!="VIM")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+ECCGroup<-
+  ECC %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+  (plot_confusion_matrix(ECCGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(ECCGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(ECCGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+  (plot_confusion_matrix(ECCGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+```
+
+## CITRO.FREUNDII
+
+```{r warning=F,message=F}
+#| echo: false
+CF<-FinalCM %>% filter(SPECIES=="CITRO.FREUNDII") #1500
+eval <- evaluate(
+  data = CF %>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+CFGroup<-
+  CF %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(CFGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(CFGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+  (plot_confusion_matrix(CFGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+```
+
+## CITRO.KOSERI
+
+```{r warning=F,message=F}
+#| echo: false
+CK<-FinalCM %>% filter(SPECIES=="CITRO.KOSERI") #1500
+eval <- evaluate(
+  data = CK %>% filter(!GENE %in% c("NDM","VIM","OXA")) %>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+CKGroup<-
+  CK %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+  (plot_confusion_matrix(CKGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(CKGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(CKGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+
+
+```
+
+## K.AEROGENES
+
+```{r warning=F,message=F}
+#| echo: false
+KA<-FinalCM %>% filter(SPECIES=="K.AEROGENES") #1500
+eval <- evaluate(
+  data = KA %>% filter(GENE %in% c("IMP","OXA"))%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+KAGroup<-
+  KA %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+(plot_confusion_matrix(KAGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+  (plot_confusion_matrix(KAGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+  (plot_confusion_matrix(KAGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+```
+
+## K.OXYTOCA
+
+```{r warning=F,message=F}
+#| echo: false
+KO<-FinalCM %>% filter(SPECIES=="K.OXYTOCA") #1500
+eval <- evaluate(
+  data = KO %>% filter(GENE!="IMP")%>%group_by(GENE),
+  target_col = "MPCR",
+  prediction_cols = "CARBA5",
+  type="binomial",parallel = T
+)
+KOGroup<-
+  KO %>%
+  group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
+  summarise(N=n()) %>% 
+  rename(Prediction=CARBA5,Target=MPCR)%>%
+  ungroup() %>%
+  complete(Prediction, Target, GENE, fill = list(N = 0)) 
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="OXA"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="OXA"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="KPC"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="KPC"))+
+  (plot_confusion_matrix(KOGroup %>% filter(GENE=="VIM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="VIM"))+
+ (plot_confusion_matrix(KOGroup %>% filter(GENE=="IMP"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="IMP"))+
+(plot_confusion_matrix(KOGroup %>% filter(GENE=="NDM"),
+  counts_on_top=TRUE,add_normalized=FALSE)+
+  labs(x="MPCR",y="CARBA5",title="NDM"))
+
+
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+#FinalCM %>% filter(SPECIES=="KP") %>%
+#  ggplot(aes(x=MPCR))+
+#  geom_bar()+
+#  facet_grid(paste0("CARBA 5:",CARBA5)~GENE,scales ="free")+
+#  scale_x_continuous(breaks = c(0,1))+
+#  theme_bw()
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+AST<-read_csv("20230307_CPO_BD_AST.csv")
+AST<-AST %>% filter(grepl("CPO-",B)&Res!="X")%>%
+  mutate(ID=gsub("CPO-","",B), 
+         MarkerOld=Marker,
+         Marker=ifelse(grepl("Class A|Class D",Marker),
+                       "Class A or D",
+                       ifelse(Marker=="Carbapenemase Producer","Class Unknown",
+                              ifelse(grepl("Class B",Marker),"Class B",Marker))), 
+         MarkerOld=ifelse(grepl("Class A",MarkerOld),
+                       "Class A",
+                       ifelse(grepl("Class D",MarkerOld),
+                       "Class D",
+                       ifelse(MarkerOld=="Carbapenemase Producer","Class Unknown",
+                              ifelse(grepl("Class B",MarkerOld),"Class B",MarkerOld)))),
+         Res=ifelse(Res=="S","S","R or I"))
+AST$Marker<-ifelse(is.na(AST$Marker),"Negative",AST$Marker)
+AST$SPECIES<-ifelse(AST$Name=="Klebsiella pneumoniae","KP",
+                    ifelse(AST$Name=="Klebsiella oxytoca","K.OXYTOCA",
+                           ifelse(AST$Name=="Klebsiella aerogenes","K.AEROGENES",
+                                  ifelse(AST$Name=="Escherichia coli","EC",
+                                         ifelse(AST$Name=="Enterobacter cloacae complex","ENT.CLOACAE",
+                                                ifelse(AST$Name=="Citrobacter koseri","CITRO.KOSERI",
+                                                       ifelse(AST$Name=="Citrobacter freundii complex","CITRO.FREUNDII",
+                                                              AST$Name)))))))
+
+AST<-AST %>% filter(!(ID=="32968" &Marker=="Negative"))
+
+#AST_MPCR<-inner_join(AST,FinalCM,by=c("ID","SPECIES"))
+#AST_MPCRGroup<-
+#  AST_MPCR %>% group_by(MPCR,CARBA5,Ab,Res,GENE) %>%
+#  summarise(Count=n())
+ASTCPO<-AST%>%select(ID,Name,SPECIES,Marker,Ab,Res) %>% unique() 
+CPO<-
+  AST%>%select(ID,Name,SPECIES,Marker) %>% unique() %>% 
+  filter(!is.na(Marker)) 
+
+```
+
+# CPO, mCIM, and eCIM (FirstAll)
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+
+CIM_KP <- read_excel("20230307_CPO_BD_final.xlsx", 
+    sheet = "KP")
+CIM_Other <- read_excel("20230307_CPO_BD_final.xlsx", 
+    sheet = "other")
+col<-c("Accession","Organism","mCIM","eCIM","mCIM/eCIM Result")
+CIMAll<-rbind(CIM_KP[,col],CIM_Other[,col])
+CIMAll$ID<-gsub("CPO-","",CIMAll$Accession)
+CIMAll<-CIMAll %>% filter(!is.na(mCIM)&!is.na(eCIM)&eCIM!=2&mCIM!="#REF!")
+#table(CIMAll$eCIM)
+#table(CIMAll$mCIM)
+CIMAll$mCIM<-ifelse(CIMAll$mCIM==0,"(-)","(+)")
+CIMAll$eCIM<-ifelse(CIMAll$eCIM==0,"(-)","(+)")
+CIMAll$mCIMeCIM<-paste0("mCIM",CIMAll$mCIM,"/eCIM",CIMAll$eCIM)
+CIMAll<-CIMAll %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
+CIMAll$SPECIES<-ifelse(CIMAll$Organism=="Klebsiella pneumoniae","KP",
+                    ifelse(CIMAll$Organism=="Klebsiella oxytoca","K.OXYTOCA",
+                           ifelse(CIMAll$Organism=="Klebsiella aerogenes","K.AEROGENES",
+                                  ifelse(CIMAll$Organism=="Escherichia coli","EC",
+                                         ifelse(CIMAll$Organism=="Enterobacter cloacae complex","ENT.CLOACAE",
+                                                ifelse(CIMAll$Organism=="Citrobacter koseri","CITRO.KOSERI",
+                                                       ifelse(CIMAll$Organism=="Citrobacter freundii complex","CITRO.FREUNDII",
+                                                              CIMAll$Organism)))))))
+
+CPO_CIM<-inner_join(CPO,CIMAll,by=c("ID","Name"="Organism","SPECIES"))
+```
+
+-   mCIM-eCIM- =\> no carbapenemase detected
+-   mCIM+eCIM- =\> class A or D
+-   mCIM-eCIM+ =\> lab error? should be rechecked
+-   mCIM+eCIM+ =\> classB
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+#CPO_CIM$mCIMeCIM<-paste0("mCIM",CPO_CIM$mCIM,"/eCIM",CPO_CIM$eCIM)
+#CPO_CIM<-CPO_CIM %>% filter(!(mCIM=="(-)"&eCIM=="(+)"))
+CPO_CIMGroup<-
+  CPO_CIM %>%
+  group_by(Name,Marker,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ungroup() %>%
+  complete(Name,Marker, mCIMeCIM, fill = list(Count = 0)) 
+
+CPO_CIMGroup$Tag<-""
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Class A or D" &CPO_CIMGroup$Marker!="Class Unknown" & CPO_CIMGroup$mCIMeCIM=="mCIM(+)/eCIM(-)",
+       "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Class B" &CPO_CIMGroup$Marker!="Class Unknown" & CPO_CIMGroup$mCIMeCIM=="mCIM(+)/eCIM(+)",
+       "Conflict",CPO_CIMGroup$Tag)
+CPO_CIMGroup$Tag<-
+  ifelse(CPO_CIMGroup$Marker!="Negative" & CPO_CIMGroup$mCIMeCIM=="mCIM(-)/eCIM(-)",
+       "Conflict",CPO_CIMGroup$Tag)
+
+CPO_CIMGroup$Marker<-gsub(" Producer","",CPO_CIMGroup$Marker)
+knitr::kable(CPO_CIMGroup %>% filter(Count!=0))
+```
+
+```{r warning=FALSE, message=FALSE, fig.height=10,fig.width=15}
+#| echo: false
+#CPO_CIMGroup$Target<-CPO_CIMGroup$mCIM
+#CPO_CIMGroup$Prediction<-CPO_CIMGroup$eCIM
+#CPO_CIMGroup$N<-CPO_CIMGroup$Count
+# (plot_confusion_matrix(CPO_CIMGroup %>% 
+#                          filter(Name=="Klebsiella pneumoniae"&
+#                                   Marker=="Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Carbapenemase"))+
+# (plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class B Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Class B Carbapenemase"))+
+# (plot_confusion_matrix(CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae"&Marker=="Class A or D Carbapenemase"),
+#   counts_on_top=TRUE,add_normalized=FALSE)+
+#   labs(x="mCIM",y="eCIM",title="Class A or D Carbapenemase"))
+#table(CPO_CIMGroup$Name)
+CPO_CIMGroup$mCIMeCIM<-factor(CPO_CIMGroup$mCIMeCIM,
+                              levels=c("mCIM(-)/eCIM(-)","mCIM(+)/eCIM(+)","mCIM(+)/eCIM(-)"))
+KPCPO<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella pneumoniae") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella pneumoniae*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+KOCPO<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella oxytoca") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella oxytoca*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+KACOP<-
+  CPO_CIMGroup %>% filter(Name=="Klebsiella aerogenes") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  theme_bw()+mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella aerogenes*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+ECCPO<-
+  CPO_CIMGroup %>% filter(Name=="Escherichia coli") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic('Escherichia coli')))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+ECCCPO<-
+  CPO_CIMGroup %>% filter(Name=="Enterobacter cloacae complex") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Enterobacter cloacae complex*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CKCPO<-
+  CPO_CIMGroup %>% filter(Name=="Citrobacter koseri") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title="*Citrobacter koseri*")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CFCCPO<-
+  CPO_CIMGroup %>% filter(Name=="Citrobacter freundii complex") %>%
+  ggplot(aes(x=Marker,y=mCIMeCIM,fill=Count,label=Count)) +
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic('Citrobacter freundii complex')))+
+  theme_classic()#+#mdthemes::md_theme_classic() +
+  #theme(title = ggtext::element_markdown())
+
+KPCPO+KOCPO+KACOP+ECCPO+ECCCPO+CKCPO+CFCCPO
+```
+
+# CPO vs. MPCR
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CPOGENE<-inner_join(CPO,FinalCM %>% unique(), 
+           by = c("ID", "SPECIES"))
+
+CPOMPCR<-
+  CPOGENE%>% select(ID,Name,Marker,MPCR,GENE) %>%
+  filter(MPCR==1) %>% group_by(ID,Marker,Name) %>%
+  summarise(GENEGroup=paste0(GENE, collapse = "+"))
+CPOMPCRNeg<-
+  CPOGENE%>% select(ID,Name,Marker) %>% unique() %>%
+  anti_join(.,CPOMPCR)
+CPOMPCRNeg$GENEGroup<-"Negative"
+#CPOMPCRNeg %>% filter(ID %in% CPOMPCR$ID) # should be 0
+CPOMPCRAll<-rbind(CPOMPCR,CPOMPCRNeg)
+CPOMPCRAll$GENEGroup<-factor(CPOMPCRAll$GENEGroup,levels = rev(lev))
+CPOMPCR$GENEGroup<-factor(CPOMPCR$GENEGroup,levels = rev(lev))
+CPOMPCR$GENENew<-
+  ifelse(CPOMPCR$GENEGroup %in% c("KPC","OXA","KPC+OXA"),
+         "KPC/OXA",
+         ifelse(CPOMPCR$GENEGroup %in% c("IMP","NDM","VIM","NDM+VIM"),
+         "IMP/NDM/VIM","Others"))
+CPOMPCR$GENENew<-factor(CPOMPCR$GENENew,
+                        levels = rev(c("KPC/OXA","IMP/NDM/VIM","Others")))
+CPOMPCRAll$GENENew<-
+  ifelse(CPOMPCRAll$GENEGroup %in% c("KPC","OXA","KPC+OXA"),
+         "KPC/OXA",
+         ifelse(CPOMPCRAll$GENEGroup %in% c("IMP","NDM","VIM","NDM+VIM"),
+         "IMP/NDM/VIM",
+         ifelse(CPOMPCRAll$GENEGroup=="Negative","Negative","Others")))
+CPOMPCRAll$GENENew<-factor(CPOMPCRAll$GENENew,
+                        levels = rev(c("KPC/OXA","IMP/NDM/VIM","Others","Negative")))
+
+#CPOMPCR %>% group_by(ID) %>% summarise(Count=n()) %>% arrange(desc(Count)) should be 0
+CPOMPCRGrpup<-
+  CPOMPCR %>% group_by(GENEGroup,GENENew,Marker) %>%
+  summarise(Count=n()) 
+knitr::kable(CPOMPCRGrpup)
+CPOMPCRGrpup %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR")
+```
+
+-   Gene grouping
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+
+CPOMPCRGrpup %>% group_by(GENENew,Marker) %>%
+  summarise(Total=sum(Count)) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count")
+```
+
+## Klebsiella pneumoniae
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella pneumoniae")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Klebsiella pneumoniae')))
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella pneumoniae")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Klebsiella pneumoniae')))
+```
+
+## Escherichia coli
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Escherichia coli")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Escherichia coli')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Escherichia coli")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Escherichia coli')))
+```
+
+## Enterobacter cloacae complex
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Enterobacter cloacae complex")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Enterobacter cloacae complex')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Enterobacter cloacae complex")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Enterobacter cloacae complex')))
+```
+
+## CITRO.FREUNDII
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Citrobacter freundii complex")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Citrobacter freundii complex')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Citrobacter freundii complex")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Citrobacter freundii complex')))
+```
+
+## CITRO.KOSERI
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Citrobacter koseri")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Citrobacter koseri')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Citrobacter koseri")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Citrobacter koseri')))
+```
+
+## K.AEROGENES
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella aerogenes")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Klebsiella aerogenes')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella aerogenes")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Klebsiella aerogenes')))
+```
+
+## K.oxytoca
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella oxytoca")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",title=expression(italic('Klebsiella oxytoca')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOMPCR %>% filter(Name=="Klebsiella oxytoca")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Klebsiella oxytoca')))
+```
+
+# CPO vs. CARBA 5
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+
+CPOCARBA5<-
+  CPOGENE%>% select(ID,Name,Marker,CARBA5,GENE) %>%
+  filter(CARBA5==1) %>% group_by(ID,Marker,Name) %>%
+  summarise(GENEGroup=paste0(GENE, collapse = "+"))
+CPOCARBA5$GENEGroup<-factor(CPOCARBA5$GENEGroup,levels = rev(lev))
+CPOCARBA5$GENENew<-
+  ifelse(CPOCARBA5$GENEGroup %in% c("KPC","OXA","KPC+OXA"),
+         "KPC/OXA",
+         ifelse(CPOCARBA5$GENEGroup %in% c("IMP","NDM","VIM","NDM+VIM"),
+         "IMP/NDM/VIM","Others"))
+CPOCARBA5$GENENew<-factor(CPOCARBA5$GENENew,
+                        levels = rev(c("KPC/OXA","IMP/NDM/VIM","Others")))
+#CPOCARBA5 %>% group_by(ID) %>% summarise(Count=n()) %>% arrange(desc(Count)) should be 0
+CPOCARBA5Grpup<-
+  CPOCARBA5 %>% group_by(GENEGroup,GENENew,Marker) %>%
+  summarise(Count=n()) 
+knitr::kable(CPOCARBA5Grpup)
+CPOCARBA5Grpup %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5")
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5Grpup %>% group_by(GENENew,Marker) %>%
+  summarise(Total=sum(Count)) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count")
+```
+
+## Klebsiella pneumoniae
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Klebsiella pneumoniae')))
+
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Klebsiella pneumoniae')))
+```
+
+## Escherichia coli
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Escherichia coli")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Escherichia coli')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Escherichia coli")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Escherichia coli')))
+```
+
+## Enterobacter cloacae complex
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Enterobacter cloacae complex')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Enterobacter cloacae complex')))
+```
+
+## CITRO.FREUNDII
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Citrobacter freundii complex")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Citrobacter freundii complex')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Citrobacter freundii complex")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Citrobacter freundii complex')))
+```
+
+## CITRO.KOSERI
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Citrobacter koseri")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Citrobacter koseri')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Citrobacter koseri")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Citrobacter koseri')))
+```
+
+## K.AEROGENES
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella aerogenes")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Klebsiella aerogenes')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella aerogenes")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Klebsiella aerogenes')))
+```
+
+## K.oxytoca
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella oxytoca")%>%
+  group_by(GENEGroup,Marker) %>%
+  summarise(Count=n()) %>%
+  ggplot(aes(x=Marker,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",title=expression(italic('Klebsiella oxytoca')))
+
+```
+
+-   Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+CPOCARBA5 %>% filter(Name=="Klebsiella oxytoca")%>% 
+  group_by(GENENew,Marker) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=Marker,y=GENENew,fill=Total,label=Total))+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Klebsiella oxytoca')))
+```
+
+
+# CPO vs. AST
+
+-   Not class B, but Ceftazidime-Avibactam R
+-   Ertapenem, Imipenem, Meropenem **每個抗生素分開呈現**:
+    -   MIC vs mCIM/eCIM
+    -   MIC vs MPCR
+    -   MIC vs CARBA5
+    -   MIC vs CPO
+
+## Not class B, but Ceftazidime-Avibactam R
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ASTCPOGroup<-
+  ASTCPO %>% filter(Ab %in% c("Ceftazidime-Avibactam")) %>%
+  group_by(Name,Marker,Ab,Res) %>%
+  summarise(Count=n())
+knitr::kable(ASTCPOGroup)
+```
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+  ggplot(aes(x=Res,y=Count,label=Count,fill=Name))+
+  geom_bar(stat="identity")+
+  #geom_text()+
+  scale_fill_brewer(palette = "Dark2")+
+  facet_grid(.~Marker)+
+  theme_bw()
+```
+## PCR vs. AST
+
+- 單一KPC或OXA：對應KPC/OXA
+- 單一NDM或VIM或IMP：對應IMP/NDM/VIM
+- 多樣偵測(e.g. KPC+OXA)：對應Others
+- 沒有偵測到：對應Negative
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+CAAST<-AST %>% filter(Ab=="Ceftazidime-Avibactam") %>%
+             select(ID,Name,SPECIES,Ab,Res)
+
+MPCRPos<-
+  FinalCM %>% select (-CARBA5) %>% filter(MPCR==1) 
+MPCRNeg<-
+  FinalCM%>% select(-CARBA5,ID,SPECIES) %>% unique() %>%
+  anti_join(.,MPCRPos,by=c("ID","SPECIES"))
+MPCRNeg$GENE<-"Negative"
+MPCRNeg %>% filter(ID %in% MPCRPos$ID)
+MPCRAll<-rbind(MPCRPos,MPCRNeg)
+MPCRAll<-
+  MPCRAll%>% select(ID,SPECIES,GENE) %>%
+  group_by(ID,SPECIES) %>%
+  summarise(GENEGroup=paste0(GENE, collapse = "+")) %>%
+  mutate(GENEGroup=ifelse(grepl("Negative",GENEGroup),"Negative",GENEGroup))
+MPCRAll$GENEGroup<-factor(MPCRAll$GENEGroup,levels = rev(lev))
+
+MPCRAll$GENENew<-
+  ifelse(MPCRAll$GENEGroup %in% c("KPC","OXA"), #,"KPC+OXA"
+         "KPC/OXA",
+         ifelse(MPCRAll$GENEGroup %in% c("IMP","NDM","VIM"), #,"NDM+VIM"
+         "IMP/NDM/VIM",
+         ifelse(MPCRAll$GENEGroup=="Negative","Negative","Others")))
+MPCRAll$GENENew<-factor(MPCRAll$GENENew,
+                        levels = c("KPC/OXA","IMP/NDM/VIM","Others","Negative"))
+
+MPCR_CAAST<-inner_join(MPCRAll,CAAST,by=c("ID","SPECIES"))
+
+MPCR_CAAST %>% group_by(Name,GENENew,Res) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Res,y=Count,label=Count,fill=Name))+
+  geom_bar(stat="identity")+
+  #geom_text()+
+  scale_fill_brewer(palette = "Dark2")+
+  facet_grid(.~GENENew)+
+  theme_bw()
+```
+
+## Ertapenem, Imipenem, Meropenem
+
+### MIC vs. CPO
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MICCPO<-AST %>% select(ID,Name,SPECIES,Tit,Ab,Marker) %>% unique() %>%
+  filter(Ab %in% c("Ertapenem","Imipenem","Meropenem"))
+MICCPO$Marker<-factor(MICCPO$Marker,
+                      levels = c("Negative","Class B","Class Unknown","Class A or D"))
+MICCPO$Tit<-factor(MICCPO$Tit,
+                   levels = c("<=0.25", "0.5","1",">1","2","4","8",">8","16","32",">32"))
+MICCPO %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Meropenem")
+MICCPO %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Imipenem")
+MICCPO %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,Marker) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=Marker,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CPO",title="Ertapenem")
+```
+
+### MIC vs. mCIM/eCIM
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MICCPOCIM<-
+  inner_join(MICCPO,CPO_CIM, by = c("ID", "Name", "SPECIES", "Marker"))
+MICCPOCIM$mCIMeCIM<-factor(MICCPOCIM$mCIMeCIM,
+                           levels=c("mCIM(-)/eCIM(-)","mCIM(+)/eCIM(+)","mCIM(+)/eCIM(-)" ))
+MICCPOCIM %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="mCIM/eCIM",title="Meropenem")
+MICCPOCIM %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="mCIM/eCIM",title="Imipenem")
+MICCPOCIM %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,mCIMeCIM) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=mCIMeCIM,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="mCIM/eCIM",title="Ertapenem")
+```
+
+### MIC vs. MPCR
+20230430
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MICCPOMPCR<-
+  inner_join(MICCPO,CPOMPCRAll, by = c("ID", "Name", "Marker"))
+
+MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Meropenem")
+
+MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Imipenem")
+
+MICCPOMPCR %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Ertapenem")
+
+```
+
+#### Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Meropenem")
+MICCPOMPCR %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Imipenem")
+MICCPOMPCR %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="MPCR",title="Ertapenem")
+```
+
+### MIC vs. CARBA5
+
+```{r warning=FALSE, message=FALSE}
+#| echo: false
+MICCPOCARBA5<-
+  inner_join(MICCPO,CPOCARBA5, by = c("ID", "Name", "Marker"))
+
+MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Meropenem")
+
+MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Imipenem")
+
+MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENEGroup) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENEGroup,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Ertapenem")
+
+```
+
+#### Gene grouping
+
+```{r warning=F,message=F}
+#| echo: false
+MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Meropenem")
+MICCPOCARBA5 %>% filter(Ab=="Imipenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Imipenem")
+MICCPOCARBA5 %>% filter(Ab=="Ertapenem") %>%
+  group_by(Tit,GENENew) %>%
+  summarise(Count=n())%>%
+  ggplot(aes(x=Tit,y=GENENew,fill=Count,label=Count))+
+  geom_tile()+geom_text()+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+
+  labs(x="MIC",y="CARBA5",title="Ertapenem")
+```
+
+
+
+```{r warning=F,message=F}
+#| echo: false
+## Data combine
+## MPCR vs. CARBA5
+### MPCR
+MPCRFinal<-
+  FinalCM %>% select (-CARBA5) %>% filter(MPCR==1) %>%
+  group_by(ID,SPECIES) %>% pivot_wider(names_from="GENE",values_from="MPCR") %>%
+  mutate(KPC=ifelse(KPC==1,"KPC",NA),
+         OXA=ifelse(OXA==1,"OXA",NA),
+         NDM=ifelse(NDM==1,"NDM",NA),
+         VIM=ifelse(VIM==1,"VIM",NA),
+         IMP=ifelse(IMP==1,"IMP",NA)) %>%
+  unite(.,col="MPCR",KPC,OXA,NDM,VIM,IMP, na.rm=TRUE, sep=",")
+### CARBA5
+CARBA5Final<-
+  FinalCM %>% select (-MPCR) %>% filter(CARBA5==1) %>%
+  group_by(ID,SPECIES) %>% pivot_wider(names_from="GENE",values_from="CARBA5") %>%
+  mutate(KPC=ifelse(KPC==1,"KPC",NA),
+         OXA=ifelse(OXA==1,"OXA",NA),
+         NDM=ifelse(NDM==1,"NDM",NA),
+         VIM=ifelse(VIM==1,"VIM",NA),
+         IMP=ifelse(IMP==1,"IMP",NA)) %>%
+  unite(.,col="CARBA5",KPC,OXA,NDM,VIM,IMP, na.rm=TRUE, sep="+")
+
+## CPO vs. CIM
+CIMFinal<-CIMAll %>% select(ID,SPECIES,mCIMeCIM)
+CPOFinal<-CPO %>% select(ID,SPECIES,Marker) %>% rename(CPO=Marker)
+
+
+CombineData<-
+  full_join(MPCRFinal,CARBA5Final) %>%
+  full_join(.,CIMFinal) %>%
+  full_join(.,CPOFinal)
+write_csv(CombineData,"CombineData.csv")
+
+```
+
+# PCR+, CPO vs. CARBA5
+all SPECIES
+20230430
+CPO NA -> no results in file.
+```{r warning=F,message=F}
+#| echo: false
+CombineData %>%
+  filter(!is.na(MPCR)) %>%
+  group_by(CPO,CARBA5) %>%
+  summarise(Count=n()) %>% knitr::kable()
+
+```
+
+
+```{r warning=F,message=F}
+#| echo: false
+#| eval: false
+# For test
+CombineData %>%
+  filter(grepl("OXA",CARBA5) & CPO=="Class A or D") %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
+CombineData %>%
+  filter(mCIMeCIM=="mCIM(+)/eCIM(+)" & CPO=="Class A or D") %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
+CombineData %>%
+  filter(grepl("OXA",CARBA5) & grepl("OXA",MPCR)) %>%
+  group_by(SPECIES) %>%
+  summarise(Count=n())
+```
