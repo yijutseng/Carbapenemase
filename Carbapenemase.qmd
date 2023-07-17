@@ -3,7 +3,7 @@ title: "Carbapenemase Project"
 format: html
 author: "Yi-Ju Tseng"
 editor: visual
-date-modified: 2023-05-02
+date-modified: 2023-07-17
 ---
 
 ```{r, message=FALSE, warning=FALSE}
@@ -202,7 +202,7 @@ write_csv(CombineData,"CombineData.csv")
 -   多樣偵測(e.g. KPC+OXA)：對應Others
 -   沒有偵測到：對應Negative
 
-# FirstAll vs. Conventional
+# FirstAll vs. Conventional {#firstall-vs.-conventional}
 
 ```{r, message=FALSE, warning=FALSE}
 #| echo: false
@@ -280,7 +280,7 @@ plot_confusion_matrix(eval,
 ggsave("Con_vs_FirstAll.pdf",device = "pdf",width = 4,height = 4)
 ```
 
-# CPO vs. mCIMeCIM
+# CPO vs. mCIMeCIM (Figure 3) {#cpo-vs.-mcimecim}
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
@@ -308,6 +308,8 @@ CPO_CIMGroup$CPO<-gsub(" Producer","",CPO_CIMGroup$CPO)
 knitr::kable(CPO_CIMGroup %>% filter(Count!=0))
 ```
 
+(Figure 3)
+
 ```{r warning=FALSE, message=FALSE, fig.height=10,fig.width=15}
 #| echo: false
 
@@ -316,25 +318,25 @@ KPCPO<-
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  theme_bw()+mdthemes::md_theme_classic() +
-  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella pneumoniae*")+
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic("Klebsiella pneumoniae")))+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")
 KOCPO<-
   CPO_CIMGroup %>% filter(Name=="Klebsiella oxytoca") %>%
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  theme_bw()+mdthemes::md_theme_classic() +
-  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella oxytoca*")+
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic("Klebsiella oxytoca")))+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")
 KACOP<-
   CPO_CIMGroup %>% filter(Name=="Klebsiella aerogenes") %>%
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  theme_bw()+mdthemes::md_theme_classic() +
-  labs(x="CPO",y="mCIM/eCIM",title="*Klebsiella aerogenes*")+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic("Klebsiella aerogenes")))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B",breaks=c(0,3,6,9,12))
 ECCPO<-
   CPO_CIMGroup %>% filter(Name=="Escherichia coli") %>%
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
@@ -348,23 +350,23 @@ ECCCPO<-
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  mdthemes::md_theme_classic() +
-  labs(x="CPO",y="mCIM/eCIM",title="*Enterobacter cloacae complex*")+
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic("Enterobacter cloacae complex")))+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")
 CKCPO<-
   CPO_CIMGroup %>% filter(Name=="Citrobacter koseri") %>%
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  mdthemes::md_theme_classic() +
-  labs(x="CPO",y="mCIM/eCIM",title="*Citrobacter koseri*")+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")
+  theme_classic()+#mdthemes::md_theme_classic() +
+  labs(x="CPO",y="mCIM/eCIM",title=expression(italic("Citrobacter koseri")))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B",breaks=c(0,3,6,9,12))
 CFCCPO<-
   CPO_CIMGroup %>% filter(Name=="Citrobacter freundii complex") %>%
   ggplot(aes(x=CPO,y=mCIMeCIM,fill=Count,label=Count)) +
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
-  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B",breaks=c(0,2,4,6,8))+
   labs(x="CPO",y="mCIM/eCIM",title=expression(italic('Citrobacter freundii complex')))+
   theme_classic()#+#mdthemes::md_theme_classic() +
   #theme(title = ggtext::element_markdown())
@@ -372,7 +374,7 @@ CFCCPO<-
 KPCPO+KOCPO+KACOP+ECCPO+ECCCPO+CKCPO+CFCCPO
 ```
 
-# CPO vs. MPCR
+# CPO vs. MPCR {#cpo-vs.-mpcr}
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
@@ -392,7 +394,7 @@ CPOMPCRGrpup %>%
   theme_classic()+labs(x="CPO",y="MPCR")
 ```
 
--   Gene grouping
+-   Gene grouping (Figure 4)
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
@@ -406,6 +408,18 @@ CPOMPCRGrpup %>% group_by(MPCRGroup,CPO) %>%
   theme_classic()+labs(x="CPO",y="MPCR",fill="Count")
 ```
 
+```{r warning=FALSE, message=FALSE,, fig.height=10,fig.width=15}
+#| echo: false
+CPO_MPCR %>% group_by(Name,MPCRGroup,CPO) %>%
+  summarise(Total=n()) %>% 
+  ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
+  facet_wrap(fct_rev(Name)~.)+
+  geom_tile()+geom_text()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))+
+  scale_fill_gradient(low="#F7FBFF",high="#08306B")+
+  theme_classic()+labs(x="CPO",y="MPCR",fill="Count")+
+  theme( strip.text = element_text(face = "italic"))
+```
 ## Klebsiella pneumoniae
 
 ```{r warning=F,message=F}
@@ -608,12 +622,13 @@ CPO_MPCR %>% filter(Name=="Klebsiella oxytoca")%>%
   theme_classic()+labs(x="CPO",y="MPCR",fill="Count",title=expression(italic('Klebsiella oxytoca')))
 ```
 
-# CPO vs. CARBA5
+# CPO vs. CARBA5 {#cpo-vs.-carba5}
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 CPO_CARBA5<-inner_join(CPOFinal,CARBA5Final)
 
+# why 434?
 CPO_CARBA5 %>% group_by(CARBA5,CARBA5Group,CPO) %>%
   summarise(Count=n())%>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -841,7 +856,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella oxytoca")%>%
   theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title=expression(italic('Klebsiella oxytoca')))
 ```
 
-# CPO vs. AST 
+# CPO vs. AST {#cpo-vs.-ast}
 
 -   Not class B, but Ceftazidime-Avibactam R
 
@@ -867,7 +882,7 @@ ASTCPOGroup %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   theme_bw()
 ```
 
-# MPCR vs. AST
+# MPCR vs. AST {#mpcr-vs.-ast}
 
 20230502
 
@@ -910,14 +925,15 @@ MPCR_CAAST %>% group_by(Name,GENENew,Res) %>%
   facet_grid(.~GENENew)+
   theme_bw()
 ```
-# All vs. MIC 
+
+# All vs. MIC {#all-vs.-mic}
 
 -   Ertapenem, Imipenem, Meropenem **每個抗生素分開呈現**:
     -   MIC vs mCIM/eCIM
     -   MIC vs MPCR
     -   MIC vs CARBA5
     -   MIC vs CPO
--   Add Ceftazidime-Avibactam 20230502 
+-   Add Ceftazidime-Avibactam 20230502
 
 ## MIC vs. CPO
 
@@ -1177,29 +1193,121 @@ MICCPOCARBA5 %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   labs(x="MIC",y="CARBA5",title="Ceftazidime-Avibactam")
 ```
 
-# MPCR vs. CARBA5
+# MPCR vs. CARBA5 {#mpcr-vs.-carba5}
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 CARBA5_MPCR<-inner_join(CARBA5Final,MPCRFinal, by = c("ID","SPECIES"))
+CARBA5_MPCR$CARBA5Group<-fct_rev(CARBA5_MPCR$CARBA5Group)
+CARBA5_MPCRGroup<-
+  CARBA5_MPCR %>%
+  group_by(SPECIES,CARBA5Group,MPCRGroup) %>%
+  summarise(Count=n())%>%
+  ungroup() %>%
+  complete(SPECIES,CARBA5Group,MPCRGroup, fill = list(Count = 0)) 
+NameSP<-CPOFinal %>% select(SPECIES,Name) %>% unique()
+CARBA5_MPCRGroup<-inner_join(CARBA5_MPCRGroup,NameSP,by="SPECIES")
+
+```
+
+## All (Figure 5)
+```{r warning=F,message=F}
+#| echo: false
+CARBA5_MPCR %>%
+  group_by(CARBA5Group,MPCRGroup) %>%
+  summarise(Count=n())%>%
+  ungroup() %>%
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR")+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+```
+
+```{r warning=F,message=F, fig.height=10,fig.width=15}
+#| echo: false
+CARBA5_MPCRGroup %>%
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      facet_wrap(fct_rev(Name)~.)+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+  theme( strip.text = element_text(face = "italic"))+
+      labs(x="CARBA5",y="MPCR")+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+```
+
+```{r warning=F,message=F, fig.height=10,fig.width=15}
+#| echo: false
+CARBA5_MPCRKP<-CARBA5_MPCRGroup %>% filter(SPECIES=="KP") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Klebsiella pneumoniae')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CARBA5_MPCRKO<-CARBA5_MPCRGroup %>% filter(SPECIES=="K.OXYTOCA") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Klebsiella oxytoca')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B",breaks=c(0,3,6,9,12))
+CARBA5_MPCRCK<-CARBA5_MPCRGroup %>% filter(SPECIES=="CITRO.KOSERI") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Citrobacter koseri')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B",breaks=c(0,3,6,9,12))
+CARBA5_MPCRCFC<-CARBA5_MPCRGroup %>% filter(SPECIES=="CITRO.FREUNDII") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Citrobacter freundii complex')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CARBA5_MPCRKA<-CARBA5_MPCRGroup %>% filter(SPECIES=="K.AEROGENES") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Klebsiella aerogenes')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CARBA5_MPCREC<-CARBA5_MPCRGroup %>% filter(SPECIES=="EC") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Escherichia coli')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CARBA5_MPCRECC<-CARBA5_MPCRGroup %>% filter(SPECIES=="EC") %>% 
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
+      geom_tile()+geom_text()+
+      scale_x_discrete(guide = guide_axis(n.dodge=2))+
+      theme_classic()+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Enterobacter cloacae complex')))+
+      scale_fill_gradient(low="#F7FBFF",high="#08306B")
+CARBA5_MPCRKP+CARBA5_MPCRKO+CARBA5_MPCRKA+CARBA5_MPCREC+CARBA5_MPCRECC+CARBA5_MPCRCK+CARBA5_MPCRCFC
 ```
 
 ## Klebsiella pneumoniae
 
--   Grouping (**first try**)
+-   Grouping (**first try**, x-y modified)
 
 ```{r warning=F,message=F}
-    #| echo: false
+#| echo: false
     CARBA5_MPCR %>% filter(SPECIES=="KP") %>% 
       group_by(CARBA5Group,MPCRGroup) %>%
       summarise(Count=n())%>%
-      ggplot(aes(x=MPCRGroup,y=CARBA5Group,fill=Count,label=Count))+
+      ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
       geom_tile()+geom_text()+
       scale_x_discrete(guide = guide_axis(n.dodge=2))+
       theme_classic()+
-      labs(x="MPCR",y="CARBA5",title=expression(italic('Klebsiella pneumoniae')))+
+      labs(x="CARBA5",y="MPCR",title=expression(italic('Klebsiella pneumoniae')))+
       scale_fill_gradient(low="#F7FBFF",high="#08306B")
-    ```
+```
 
 -   Multiple genes (**first try**)
 
@@ -1208,11 +1316,11 @@ CARBA5_MPCR<-inner_join(CARBA5Final,MPCRFinal, by = c("ID","SPECIES"))
 CARBA5_MPCR %>% filter(SPECIES=="KP") %>% 
   group_by(CARBA5,MPCR) %>%
   summarise(Count=n())%>%
-  ggplot(aes(x=MPCR,y=CARBA5,fill=Count,label=Count))+
+  ggplot(aes(x=CARBA5,y=MPCR,fill=Count,label=Count))+
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   theme_classic()+
-  labs(x="MPCR",y="CARBA5",title=expression(italic('Klebsiella pneumoniae')))+
+  labs(x="CARBA5",y="MPCR",title=expression(italic('Klebsiella pneumoniae')))+
   scale_fill_gradient(low="#F7FBFF",high="#08306B")
 ```
 
@@ -1462,7 +1570,7 @@ KOGroup<-
 
 ```
 
-# PCR positive- CPO vs. CARBA5
+# PCR positive- CPO vs. CARBA5 {#pcr-positive--cpo-vs.-carba5}
 
 all SPECIES 20230502 CPO NA -\> no results in file.
 
