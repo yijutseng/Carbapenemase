@@ -1,9 +1,9 @@
 ---
-title: "Carbapenemase Project"
+title: "Carbapenemase Project - complete cases"
 format: html
 author: "Yi-Ju Tseng"
 editor: visual
-date-modified: 2024-04-09
+date-modified: 2024-08-01
 ---
 
 ```{r, message=FALSE, warning=FALSE}
@@ -167,18 +167,20 @@ CIMFinal<-CIMAll %>% select(ID,Organism,SPECIES,mCIMeCIM) %>% rename(Name=Organi
 CIMFinal$mCIMeCIM<-factor(CIMFinal$mCIMeCIM,
                               levels=c("mCIM(-)/eCIM(-)","mCIM(+)/eCIM(+)","mCIM(+)/eCIM(-)"))
 CPOFinal<-CPO %>% select(ID,Name,SPECIES,CPO)
-
-
+MPCRFinal<-MPCRFinal[complete.cases(MPCRFinal),]
+CARBA5Final<-CARBA5Final[complete.cases(CARBA5Final),]
+CIMFinal<-CIMFinal[complete.cases(CIMFinal),]
+CPOFinal<-CPOFinal[complete.cases(CPOFinal),]
 CombineData<-
-  full_join(MPCRFinal,CARBA5Final,by = join_by(ID, SPECIES)) %>%
-  full_join(.,CIMFinal,by = join_by(ID, SPECIES)) %>%
-  full_join(.,CPOFinal,by = join_by(ID, SPECIES))
+  inner_join(MPCRFinal,CARBA5Final,by = join_by(ID, SPECIES)) %>%
+  inner_join(.,CIMFinal,by = join_by(ID, SPECIES)) %>%
+  inner_join(.,CPOFinal,by = join_by(ID, SPECIES))
 CombineData$Name<-ifelse(!is.na(CombineData$Name.y),CombineData$Name.y,CombineData$Name.x)
 CombineData<-CombineData %>%select(-Name.x,-Name.y)
 #CombineData %>% group_by(ID,SPECIES) %>%
 #  summarise(Count=n()) %>% arrange(desc(Count))
-write_csv(CombineData,"CombineData.csv")
-
+write_csv(CombineData,"CombineData_comp.csv")
+#CombineData<-CombineData[complete.cases(CombineData),]
 ```
 
 **List of analyses**:
@@ -262,6 +264,10 @@ df.merge$mCIM.x<-ifelse(df.merge$mCIM.x==0,"(-)","(+)")
 df.merge$mCIM.y<-ifelse(df.merge$mCIM.y==0,"(-)","(+)")
 df.merge$eCIM.x<-ifelse(df.merge$eCIM.x==0,"(-)","(+)")
 df.merge$eCIM.y<-ifelse(df.merge$eCIM.y==0,"(-)","(+)")
+df.merge<-df.merge[df.merge$ID %in% CombineData$ID & !is.na(df.merge$mCIM.x)& !is.na(df.merge$mCIM.y)& df.merge$mCIM.x!="?"& df.merge$mCIM.y!="?",]
+# CombineData %>% filter(SPECIES=="KP"& !(ID %in% # df.merge$ID)) %>% pull(ID) 33312
+CombineData<-CombineData %>% filter(ID!="33312")
+#CombineData<-semi_join(CombineData,KPData,by="ID")
 mCIM.comp=table(df.merge$mCIM.x,df.merge$mCIM.y) 
 dimnames(mCIM.comp)[[1]]<-c("Conventional-mCIM(-)","Conventional-mCIM(+)")
 dimnames(mCIM.comp)[[2]]<-c("FirstAll-mCIM(-)","FirstAll-mCIM(+)")
@@ -291,14 +297,21 @@ ggsave("Con_vs_FirstAll.pdf",device = "pdf",width = 4,height = 4)
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO_CIM<-inner_join(CPOFinal,CIMFinal,by=c("ID","Name","SPECIES"))
+#CPO_CIM<-inner_join(CPOFinal,CIMFinal,by=c("ID","Name","SPECIES"))
 
 CPO_CIMGroup<-
-  CPO_CIM %>%
+  CombineData %>%
   group_by(Name,CPO,mCIMeCIM) %>%
   summarise(Count=n())%>%
   ungroup() %>%
   complete(Name,CPO, mCIMeCIM, fill = list(Count = 0)) 
+
+#CPO_CIMGroup<-
+#  CPO_CIM %>%
+#  group_by(Name,CPO,mCIMeCIM) %>%
+#  summarise(Count=n())%>%
+#  ungroup() %>%
+#  complete(Name,CPO, mCIMeCIM, fill = list(Count = 0)) 
 
 CPO_CIMGroup$Tag<-""
 CPO_CIMGroup$Tag<-
@@ -387,12 +400,12 @@ KPCPO+KOCPO+KACOP+ECCPO+ECCCPO+CKCPO+CFCCPO
 #| echo: false
 
 
-CPO_MPCR<-inner_join(CPOFinal,MPCRFinal)
-CombineData %>% filter(!is.na(CPO) &!is.na(MPCR)) #492
+#CPO_MPCR<-inner_join(CPOFinal,MPCRFinal)
+CombineData %>% filter(!is.na(CPO) &!is.na(MPCR)) #475
 CPOMPCRGrpup<-
-  CPO_MPCR %>% group_by(MPCR,MPCRGroup,CPO) %>%
+  CombineData %>% group_by(MPCR,MPCRGroup,CPO) %>%
   summarise(Count=n()) 
-
+sum(CPOMPCRGrpup$Count) #475
 knitr::kable(CPOMPCRGrpup)
 CPOMPCRGrpup %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -418,7 +431,7 @@ CPOMPCRGrpup %>% group_by(MPCRGroup,CPO) %>%
 
 ```{r warning=FALSE, message=FALSE,fig.height=8,fig.width=12}
 #| echo: false
-CPO_MPCR %>% group_by(Name,MPCRGroup,CPO) %>%
+CombineData %>% group_by(Name,MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
   facet_wrap(fct_rev(Name)~.)+
@@ -432,7 +445,7 @@ CPO_MPCR %>% group_by(Name,MPCRGroup,CPO) %>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella pneumoniae")%>%
+CombineData %>% filter(Name=="Klebsiella pneumoniae")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -446,7 +459,7 @@ CPO_MPCR %>% filter(Name=="Klebsiella pneumoniae")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella pneumoniae")%>% 
+CombineData %>% filter(Name=="Klebsiella pneumoniae")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -460,7 +473,7 @@ CPO_MPCR %>% filter(Name=="Klebsiella pneumoniae")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Escherichia coli")%>%
+CombineData %>% filter(Name=="Escherichia coli")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -475,7 +488,7 @@ CPO_MPCR %>% filter(Name=="Escherichia coli")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Escherichia coli")%>% 
+CombineData %>% filter(Name=="Escherichia coli")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -489,7 +502,7 @@ CPO_MPCR %>% filter(Name=="Escherichia coli")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Enterobacter cloacae complex")%>%
+CombineData %>% filter(Name=="Enterobacter cloacae complex")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -504,7 +517,7 @@ CPO_MPCR %>% filter(Name=="Enterobacter cloacae complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Enterobacter cloacae complex")%>% 
+CombineData %>% filter(Name=="Enterobacter cloacae complex")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -518,7 +531,7 @@ CPO_MPCR %>% filter(Name=="Enterobacter cloacae complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Citrobacter freundii complex")%>%
+CombineData %>% filter(Name=="Citrobacter freundii complex")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -533,7 +546,7 @@ CPO_MPCR %>% filter(Name=="Citrobacter freundii complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Citrobacter freundii complex")%>% 
+CombineData %>% filter(Name=="Citrobacter freundii complex")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -547,7 +560,7 @@ CPO_MPCR %>% filter(Name=="Citrobacter freundii complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Citrobacter koseri")%>%
+CombineData %>% filter(Name=="Citrobacter koseri")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -562,7 +575,7 @@ CPO_MPCR %>% filter(Name=="Citrobacter koseri")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Citrobacter koseri")%>% 
+CombineData %>% filter(Name=="Citrobacter koseri")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -576,7 +589,7 @@ CPO_MPCR %>% filter(Name=="Citrobacter koseri")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella aerogenes")%>%
+CombineData %>% filter(Name=="Klebsiella aerogenes")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -591,7 +604,7 @@ CPO_MPCR %>% filter(Name=="Klebsiella aerogenes")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella aerogenes")%>% 
+CombineData %>% filter(Name=="Klebsiella aerogenes")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -605,7 +618,7 @@ CPO_MPCR %>% filter(Name=="Klebsiella aerogenes")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella oxytoca")%>%
+CombineData %>% filter(Name=="Klebsiella oxytoca")%>%
   group_by(MPCR,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=MPCR,fill=Count,label=Count))+
@@ -620,7 +633,7 @@ CPO_MPCR %>% filter(Name=="Klebsiella oxytoca")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_MPCR %>% filter(Name=="Klebsiella oxytoca")%>% 
+CombineData %>% filter(Name=="Klebsiella oxytoca")%>% 
   group_by(MPCRGroup,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=MPCRGroup,fill=Total,label=Total))+
@@ -634,10 +647,10 @@ CPO_MPCR %>% filter(Name=="Klebsiella oxytoca")%>%
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CPO_CARBA5<-inner_join(CPOFinal,CARBA5Final)
+#CPO_CARBA5<-inner_join(CPOFinal,CARBA5Final)
 
-# why 434?
-CPO_CARBA5 %>% group_by(CARBA5,CARBA5Group,CPO) %>%
+
+CombineData %>% group_by(CARBA5,CARBA5Group,CPO) %>%
   summarise(Count=n())%>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
   geom_tile()+geom_text()+
@@ -651,7 +664,7 @@ CPO_CARBA5 %>% group_by(CARBA5,CARBA5Group,CPO) %>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% group_by(CARBA5Group,CPO) %>%
+CombineData %>% group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
   geom_tile()+geom_text()+
@@ -664,7 +677,7 @@ CPO_CARBA5 %>% group_by(CARBA5Group,CPO) %>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>%
+CombineData %>% filter(Name=="Klebsiella pneumoniae")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -680,7 +693,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>% 
+CombineData %>% filter(Name=="Klebsiella pneumoniae")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -694,7 +707,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella pneumoniae")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Escherichia coli")%>%
+CombineData %>% filter(Name=="Escherichia coli")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -709,7 +722,7 @@ CPO_CARBA5 %>% filter(Name=="Escherichia coli")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Escherichia coli")%>% 
+CombineData %>% filter(Name=="Escherichia coli")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -723,7 +736,7 @@ CPO_CARBA5 %>% filter(Name=="Escherichia coli")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>%
+CombineData %>% filter(Name=="Enterobacter cloacae complex")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -738,7 +751,7 @@ CPO_CARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>% 
+CombineData %>% filter(Name=="Enterobacter cloacae complex")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -752,7 +765,7 @@ CPO_CARBA5 %>% filter(Name=="Enterobacter cloacae complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Citrobacter freundii complex")%>%
+CombineData %>% filter(Name=="Citrobacter freundii complex")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -767,7 +780,7 @@ CPO_CARBA5 %>% filter(Name=="Citrobacter freundii complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Citrobacter freundii complex")%>% 
+CombineData %>% filter(Name=="Citrobacter freundii complex")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -781,7 +794,7 @@ CPO_CARBA5 %>% filter(Name=="Citrobacter freundii complex")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Citrobacter koseri")%>%
+CombineData %>% filter(Name=="Citrobacter koseri")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -796,7 +809,7 @@ CPO_CARBA5 %>% filter(Name=="Citrobacter koseri")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Citrobacter koseri")%>% 
+CombineData %>% filter(Name=="Citrobacter koseri")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -810,7 +823,7 @@ CPO_CARBA5 %>% filter(Name=="Citrobacter koseri")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella aerogenes")%>%
+CombineData %>% filter(Name=="Klebsiella aerogenes")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -825,7 +838,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella aerogenes")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella aerogenes")%>% 
+CombineData %>% filter(Name=="Klebsiella aerogenes")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -839,7 +852,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella aerogenes")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella oxytoca")%>%
+CombineData %>% filter(Name=="Klebsiella oxytoca")%>%
   group_by(CARBA5,CPO) %>%
   summarise(Count=n()) %>%
   ggplot(aes(x=CPO,y=CARBA5,fill=Count,label=Count))+
@@ -854,7 +867,7 @@ CPO_CARBA5 %>% filter(Name=="Klebsiella oxytoca")%>%
 
 ```{r warning=F,message=F}
 #| echo: false
-CPO_CARBA5 %>% filter(Name=="Klebsiella oxytoca")%>% 
+CombineData %>% filter(Name=="Klebsiella oxytoca")%>% 
   group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Total,label=Total))+
@@ -922,7 +935,7 @@ MPCRAll$GENENew<-
 MPCRAll$GENENew<-factor(MPCRAll$GENENew,
                         levels = c("KPC/OXA","IMP/NDM/VIM","Others","Negative"))
 
-MPCR_CAAST<-inner_join(MPCRAll,CAAST,by=c("ID","SPECIES"))
+MPCR_CAAST<-inner_join(MPCRAll,CAAST,by=c("ID","SPECIES")) %>% filter(ID %in% CombineData$ID)
 
 MPCR_CAAST %>% group_by(Name,GENENew,Res) %>%
   summarise(Count=n())%>%
@@ -948,7 +961,8 @@ MPCR_CAAST %>% group_by(Name,GENENew,Res) %>%
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 MICCPO<-AST %>% select(ID,Name,SPECIES,Tit,Ab,CPO) %>% unique() %>%
-  filter(Ab %in% c("Ertapenem","Imipenem","Meropenem","Ceftazidime-Avibactam"))
+  filter(Ab %in% c("Ertapenem","Imipenem","Meropenem","Ceftazidime-Avibactam") &
+           ID %in% CombineData$ID)
 # MICCPO$Tit<-ifelse(grepl("1\xa4\xeb4\xa4\xe9",MICCPO$Tit),"1/4",
 #                    ifelse(grepl("2\xa4\xeb4\xa4\xe9",MICCPO),"2/4",
 #                           ifelse(grepl("4\xa4\xeb4\xa4\xe9",MICCPO$Tit),"4/4",
@@ -999,7 +1013,7 @@ MICCPO %>% filter(Ab=="Ceftazidime-Avibactam") %>%
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 MICCPOCIM<-
-  inner_join(MICCPO,CPO_CIM, by = c("ID", "Name", "SPECIES", "CPO"))
+  inner_join(MICCPO,CombineData, by = c("ID", "Name", "SPECIES", "CPO")) 
 MICCPOCIM$mCIMeCIM<-factor(MICCPOCIM$mCIMeCIM,
                            levels=c("mCIM(-)/eCIM(-)","mCIM(+)/eCIM(+)","mCIM(+)/eCIM(-)" ))
 MICCPOCIM %>% filter(Ab=="Meropenem") %>%
@@ -1043,7 +1057,7 @@ MICCPOCIM %>% filter(Ab=="Ceftazidime-Avibactam") %>%
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 MICCPOMPCR<-
-  inner_join(MICCPO,MPCRFinal, by = c("ID", "SPECIES"))
+  inner_join(MICCPO,CombineData, by = c("ID", "SPECIES"))
 
 MICCPOMPCR %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,MPCR) %>%
@@ -1125,7 +1139,7 @@ MICCPOMPCR %>% filter(Ab=="Ceftazidime-Avibactam") %>%
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
 MICCPOCARBA5<-
-  inner_join(MICCPO,CARBA5Final, by = c("ID", "SPECIES"))
+  inner_join(MICCPO,CombineData, by = c("ID", "SPECIES"))
 
 MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,CARBA5) %>%
@@ -1209,11 +1223,11 @@ MICCPOCARBA5 %>% filter(Ab=="Ceftazidime-Avibactam") %>%
 
 ```{r warning=FALSE, message=FALSE}
 #| echo: false
-CARBA5_MPCR<-inner_join(CARBA5Final,MPCRFinal, by = c("ID","SPECIES"))
-CARBA5_MPCR %>% filter(!is.na(CARBA5) &!is.na(MPCR)) #499
-CARBA5_MPCR$CARBA5Group<-fct_rev(CARBA5_MPCR$CARBA5Group)
+#CARBA5_MPCR<-inner_join(CARBA5Final,MPCRFinal, by = c("ID","SPECIES"))
+CombineData %>% filter(!is.na(CARBA5) &!is.na(MPCR)) #475
+CombineData$CARBA5Group<-fct_rev(CombineData$CARBA5Group)
 CARBA5_MPCRGroup<-
-  CARBA5_MPCR %>%
+  CombineData %>%
   group_by(SPECIES,CARBA5Group,MPCRGroup) %>%
   summarise(Count=n())%>%
   ungroup() %>%
@@ -1226,7 +1240,7 @@ CARBA5_MPCRGroup<-inner_join(CARBA5_MPCRGroup,NameSP,by="SPECIES")
 ## All (Figure 4 B)
 ```{r warning=F,message=F}
 #| echo: false
-CARBA5_MPCR %>%
+CombineData %>%
   group_by(CARBA5Group,MPCRGroup) %>%
   summarise(Count=n())%>%
   ungroup() %>%
@@ -1311,7 +1325,7 @@ CARBA5_MPCRKP+CARBA5_MPCRKO+CARBA5_MPCRKA+CARBA5_MPCREC+CARBA5_MPCRECC+CARBA5_MP
 
 ```{r warning=F,message=F}
 #| echo: false
-    CARBA5_MPCR %>% filter(SPECIES=="KP") %>% 
+    CombineData %>% filter(SPECIES=="KP") %>% 
       group_by(CARBA5Group,MPCRGroup) %>%
       summarise(Count=n())%>%
       ggplot(aes(x=CARBA5Group,y=MPCRGroup,fill=Count,label=Count))+
@@ -1326,7 +1340,7 @@ CARBA5_MPCRKP+CARBA5_MPCRKO+CARBA5_MPCRKA+CARBA5_MPCREC+CARBA5_MPCRECC+CARBA5_MP
 
 ```{r warning=F,message=F}
 #| echo: false
-CARBA5_MPCR %>% filter(SPECIES=="KP") %>% 
+CombineData %>% filter(SPECIES=="KP") %>% 
   group_by(CARBA5,MPCR) %>%
   summarise(Count=n())%>%
   ggplot(aes(x=CARBA5,y=MPCR,fill=Count,label=Count))+
@@ -1341,7 +1355,7 @@ CARBA5_MPCR %>% filter(SPECIES=="KP") %>%
 
 ```{r warning=F,message=F}
 #| echo: false
-KP<-FinalCM %>% filter(SPECIES=="KP") #1500
+KP<-FinalCM %>% filter(SPECIES=="KP" & ID %in% CombineData$ID) #1500
 KPGroup<-
   KP %>%
   group_by(GENE,MPCR,CARBA5, .drop = FALSE) %>%
@@ -1371,7 +1385,7 @@ KPGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-EC<-FinalCM %>% filter(SPECIES=="EC") #1500
+EC<-FinalCM %>% filter(SPECIES=="EC"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = EC %>% filter(GENE!="IMP")%>%group_by(GENE),
   target_col = "MPCR",
@@ -1407,7 +1421,7 @@ ECGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-ECC<-FinalCM %>% filter(SPECIES=="ENT.CLOACAE") #1500
+ECC<-FinalCM %>% filter(SPECIES=="ENT.CLOACAE"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = ECC %>% filter(GENE!="VIM")%>%group_by(GENE),
   target_col = "MPCR",
@@ -1442,7 +1456,7 @@ ECCGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-CF<-FinalCM %>% filter(SPECIES=="CITRO.FREUNDII") #1500
+CF<-FinalCM %>% filter(SPECIES=="CITRO.FREUNDII"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = CF %>%group_by(GENE),
   target_col = "MPCR",
@@ -1478,7 +1492,7 @@ CFGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-CK<-FinalCM %>% filter(SPECIES=="CITRO.KOSERI") #1500
+CK<-FinalCM %>% filter(SPECIES=="CITRO.KOSERI"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = CK %>% filter(!GENE %in% c("NDM","VIM","OXA")) %>%group_by(GENE),
   target_col = "MPCR",
@@ -1515,7 +1529,7 @@ CKGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-KA<-FinalCM %>% filter(SPECIES=="K.AEROGENES") #1500
+KA<-FinalCM %>% filter(SPECIES=="K.AEROGENES"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = KA %>% filter(GENE %in% c("IMP","OXA"))%>%group_by(GENE),
   target_col = "MPCR",
@@ -1550,7 +1564,7 @@ KAGroup<-
 
 ```{r warning=F,message=F}
 #| echo: false
-KO<-FinalCM %>% filter(SPECIES=="K.OXYTOCA") #1500
+KO<-FinalCM %>% filter(SPECIES=="K.OXYTOCA"& ID %in% CombineData$ID) #1500
 eval <- evaluate(
   data = KO %>% filter(GENE!="IMP")%>%group_by(GENE),
   target_col = "MPCR",
