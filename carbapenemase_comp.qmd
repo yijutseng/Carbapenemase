@@ -179,7 +179,7 @@ CombineData$Name<-ifelse(!is.na(CombineData$Name.y),CombineData$Name.y,CombineDa
 CombineData<-CombineData %>%select(-Name.x,-Name.y)
 #CombineData %>% group_by(ID,SPECIES) %>%
 #  summarise(Count=n()) %>% arrange(desc(Count))
-write_csv(CombineData,"CombineData_comp.csv")
+#write_csv(CombineData,"CombineData_comp.csv")
 #CombineData<-CombineData[complete.cases(CombineData),]
 ```
 
@@ -267,6 +267,8 @@ df.merge$eCIM.y<-ifelse(df.merge$eCIM.y==0,"(-)","(+)")
 df.merge<-df.merge[df.merge$ID %in% CombineData$ID & !is.na(df.merge$mCIM.x)& !is.na(df.merge$mCIM.y)& df.merge$mCIM.x!="?"& df.merge$mCIM.y!="?",]
 # CombineData %>% filter(SPECIES=="KP"& !(ID %in% # df.merge$ID)) %>% pull(ID) 33312
 CombineData<-CombineData %>% filter(ID!="33312")
+write_csv(CombineData,"CombineData_comp.csv")
+write_csv(df.merge,"df.merge_comp.csv")
 #CombineData<-semi_join(CombineData,KPData,by="ID")
 mCIM.comp=table(df.merge$mCIM.x,df.merge$mCIM.y) 
 dimnames(mCIM.comp)[[1]]<-c("Conventional-mCIM(-)","Conventional-mCIM(+)")
