@@ -1,0 +1,513 @@
+ID,SPECIES,MPCR,MPCRGroup,CARBA5,CARBA5Group,mCIMeCIM,CPO,Name
+32951,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+32957,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32959,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32962,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32964,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32967,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32969,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32970,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+32971,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32977,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+32983,KP,KPC,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32986,KP,KPC,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32989,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32991,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32997,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33000,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33002,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33009,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33011,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33014,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33020,KP,KPC,KPC/OXA,KPC+IMP,Others,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33022,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33023,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33027,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33028,KP,KPC,KPC/OXA,Negative,Negative,NA,Class B,Klebsiella pneumoniae
+33030,KP,KPC,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33031,KP,KPC,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33032,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33033,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33038,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33046,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33052,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33055,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33056,KP,KPC+OXA,Others,KPC+OXA,Others,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33058,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33059,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33064,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33072,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33076,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33079,KP,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33091,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33094,KP,KPC+OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33099,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33115,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33120,KP,KPC+OXA,Others,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33122,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33125,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33128,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33138,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33140,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33141,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33149,KP,KPC,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33152,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33158,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33168,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33170,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33185,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33213,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33219,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33228,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33246,KP,KPC+OXA+NDM,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33253,KP,KPC+OXA+NDM,Others,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33254,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33255,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33256,KP,KPC+OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33269,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33270,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33271,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33272,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33273,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33275,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33281,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33283,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33284,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33288,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33291,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33294,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33302,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33303,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33304,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33305,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33310,KP,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33313,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33315,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33319,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33332,KP,KPC,KPC/OXA,KPC+OXA,Others,NA,Class Unknown,Klebsiella pneumoniae
+33336,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33337,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33345,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33360,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33363,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33364,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33365,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33373,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33374,KP,KPC+OXA+NDM,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33378,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33381,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33389,KP,KPC+OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33390,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33395,KP,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33397,KP,KPC+OXA+NDM,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33398,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33399,KP,KPC+NDM,Others,KPC+NDM,Others,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33402,KP,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33404,KP,KPC,KPC/OXA,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+32955,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+32960,KP,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+32984,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+32988,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+32993,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+32995,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33013,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33021,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33025,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33040,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33043,KP,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33044,KP,OXA,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33050,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33053,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33054,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33066,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33067,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33074,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33075,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33095,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33104,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33106,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33111,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33112,KP,OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33114,KP,OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33116,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33119,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33124,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33127,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33133,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33154,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33157,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33171,KP,OXA,KPC/OXA,OXA,KPC/OXA,NA,Class A or D,Klebsiella pneumoniae
+33186,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33192,KP,OXA+VIM,Others,OXA+NDM,Others,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33211,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33218,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33220,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33223,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33230,KP,OXA,KPC/OXA,Negative,Negative,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33235,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33238,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33240,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33242,KP,OXA+IMP,Others,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33244,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33248,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33260,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33265,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33266,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33267,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33277,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33286,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33292,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33293,KP,OXA+NDM,Others,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33295,KP,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(-),Class B,Klebsiella pneumoniae
+33296,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33299,KP,OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33306,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33323,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33324,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33347,KP,OXA,KPC/OXA,OXA,KPC/OXA,NA,NA,NA
+33352,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33353,KP,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33359,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella pneumoniae
+33366,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33371,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33382,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33387,KP,OXA+NDM,Others,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33400,KP,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33401,KP,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+32968,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+32976,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+32982,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+32985,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+32994,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33006,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33017,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33036,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33039,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33048,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33077,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33083,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33105,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33160,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33167,KP,NDM,IMP/NDM/VIM,KPC+NDM,Others,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33198,KP,NDM,IMP/NDM/VIM,OXA,KPC/OXA,mCIM(-)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33199,KP,NDM,IMP/NDM/VIM,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33208,KP,NDM,IMP/NDM/VIM,KPC+NDM,Others,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33225,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33259,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella pneumoniae
+33300,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33318,KP,NDM,IMP/NDM/VIM,KPC+NDM,Others,mCIM(+)/eCIM(-),Class B,Klebsiella pneumoniae
+33321,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33348,KP,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,NA,NA,NA
+33194,KP,VIM,IMP/NDM/VIM,Negative,Negative,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33195,KP,VIM,IMP/NDM/VIM,OXA+NDM,Others,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32840,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+32876,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+32888,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33174,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33203,EC,KPC,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class B,Escherichia coli
+33239,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33243,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33249,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33252,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class B,Escherichia coli
+33314,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33357,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33362,EC,KPC,KPC/OXA,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33369,EC,KPC+NDM,Others,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33376,EC,KPC+NDM,Others,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+32945,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Escherichia coli
+32987,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33144,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class B,Escherichia coli
+33172,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Negative,Escherichia coli
+33175,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class B,Escherichia coli
+33274,EC,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Negative,Escherichia coli
+32931,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+32944,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+32990,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+32996,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+33089,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+33222,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+33298,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+33311,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+33350,EC,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+32863,EC,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Escherichia coli
+33068,ENT.CLOACAE,KPC+IMP,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33132,ENT.CLOACAE,KPC,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33143,ENT.CLOACAE,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33188,ENT.CLOACAE,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+32966,ENT.CLOACAE,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33107,ENT.CLOACAE,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Enterobacter cloacae complex
+33121,ENT.CLOACAE,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Enterobacter cloacae complex
+33130,ENT.CLOACAE,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Enterobacter cloacae complex
+33261,ENT.CLOACAE,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Enterobacter cloacae complex
+33004,ENT.CLOACAE,NDM,IMP/NDM/VIM,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+32963,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+32998,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33024,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33029,ENT.CLOACAE,IMP,IMP/NDM/VIM,NDM+IMP,Others,mCIM(+)/eCIM(-),Class B,Enterobacter cloacae complex
+33060,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class A or D,Enterobacter cloacae complex
+33061,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33065,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33071,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33086,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33108,ENT.CLOACAE,IMP,IMP/NDM/VIM,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33135,ENT.CLOACAE,IMP,IMP/NDM/VIM,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33162,ENT.CLOACAE,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33161,CITRO.FREUNDII,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter freundii complex
+32139,CITRO.FREUNDII,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(-),Class B,Citrobacter freundii complex
+32155,CITRO.FREUNDII,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(-),Class B,Citrobacter freundii complex
+32487,CITRO.FREUNDII,OXA+IMP,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter freundii complex
+32724,CITRO.FREUNDII,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter freundii complex
+32873,CITRO.FREUNDII,OXA+IMP,Others,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32878,CITRO.FREUNDII,OXA+NDM,Others,OXA+NDM,Others,mCIM(+)/eCIM(-),Class B,Citrobacter freundii complex
+33101,CITRO.FREUNDII,OXA,KPC/OXA,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(-),Class B,Citrobacter freundii complex
+33221,CITRO.FREUNDII,OXA+IMP,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter freundii complex
+32174,CITRO.FREUNDII,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32746,CITRO.FREUNDII,NDM+VIM,Others,NDM+VIM,Others,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32867,CITRO.FREUNDII,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32515,CITRO.FREUNDII,IMP,IMP/NDM/VIM,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter freundii complex
+32661,CITRO.FREUNDII,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32669,CITRO.FREUNDII,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Citrobacter freundii complex
+32718,CITRO.FREUNDII,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32726,CITRO.FREUNDII,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+32790,CITRO.FREUNDII,IMP,IMP/NDM/VIM,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter freundii complex
+32797,CITRO.FREUNDII,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+31871,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+31883,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32069,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32256,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32437,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32548,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32569,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32667,CITRO.KOSERI,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+32704,CITRO.KOSERI,KPC+OXA,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+32904,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32923,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32992,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32999,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+33070,CITRO.KOSERI,KPC+OXA,Others,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+31717,CITRO.KOSERI,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32591,CITRO.KOSERI,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+32836,CITRO.KOSERI,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Citrobacter koseri
+32919,CITRO.KOSERI,OXA,KPC/OXA,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+32948,CITRO.KOSERI,OXA+IMP,Others,Negative,Negative,mCIM(-)/eCIM(-),Negative,Citrobacter koseri
+33096,CITRO.KOSERI,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Citrobacter koseri
+32857,K.AEROGENES,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella aerogenes
+32788,K.AEROGENES,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella aerogenes
+32821,K.AEROGENES,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class Unknown,Klebsiella aerogenes
+32908,K.AEROGENES,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella aerogenes
+32980,K.AEROGENES,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella aerogenes
+33176,K.AEROGENES,IMP,IMP/NDM/VIM,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella aerogenes
+33062,K.OXYTOCA,KPC,KPC/OXA,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32668,K.OXYTOCA,OXA,KPC/OXA,OXA,KPC/OXA,NA,Class A or D,Klebsiella oxytoca
+32859,K.OXYTOCA,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella oxytoca
+32884,K.OXYTOCA,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella oxytoca
+32933,K.OXYTOCA,OXA,KPC/OXA,OXA,KPC/OXA,mCIM(+)/eCIM(+),Class A or D,Klebsiella oxytoca
+32981,K.OXYTOCA,OXA,KPC/OXA,OXA,KPC/OXA,NA,Class Unknown,Klebsiella oxytoca
+31474,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+31781,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32293,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32618,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32621,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32778,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+33087,K.OXYTOCA,NDM,IMP/NDM/VIM,NDM,IMP/NDM/VIM,NA,NA,NA
+31748,K.OXYTOCA,VIM,IMP/NDM/VIM,Negative,Negative,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+31756,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+31898,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+31905,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+31911,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32114,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32161,K.OXYTOCA,VIM,IMP/NDM/VIM,VIM,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+32953,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32954,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32956,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+32961,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32965,KP,Negative,Negative,Negative,Negative,NA,NA,NA
+32972,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32975,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+32978,KP,Negative,Negative,KPC+NDM,Others,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33003,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33007,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33008,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33012,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33015,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33018,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33026,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33034,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33049,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33051,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33078,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33080,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33081,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33084,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33092,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33093,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33098,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33103,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33109,KP,Negative,Negative,Negative,Negative,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33113,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33126,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33146,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33147,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33148,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33153,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33155,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33156,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33159,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33163,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33169,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33173,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33177,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33178,KP,Negative,Negative,KPC,KPC/OXA,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33180,KP,Negative,Negative,Negative,Negative,NA,Negative,Klebsiella pneumoniae
+33181,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33183,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33184,KP,Negative,Negative,KPC,KPC/OXA,NA,Class Unknown,Klebsiella pneumoniae
+33187,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33193,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33196,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33197,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33200,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33202,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33205,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33206,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Klebsiella pneumoniae
+33207,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33209,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33212,KP,Negative,Negative,KPC+NDM,Others,NA,Class Unknown,Klebsiella pneumoniae
+33215,KP,Negative,Negative,Negative,Negative,NA,NA,NA
+33216,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33224,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33226,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33227,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33229,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33233,KP,Negative,Negative,OXA,KPC/OXA,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33234,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(+),Class Unknown,Klebsiella pneumoniae
+33245,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33250,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33251,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33257,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33263,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33268,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33282,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33289,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33297,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33308,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33312,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33316,KP,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33317,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33320,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33322,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33326,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33327,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33329,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33331,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33335,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33341,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33342,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33346,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33349,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33354,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33358,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33367,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33368,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33370,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33372,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33377,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+33380,KP,Negative,Negative,Negative,Negative,NA,NA,NA
+33384,KP,Negative,Negative,KPC+NDM,Others,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33392,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella pneumoniae
+33403,KP,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella pneumoniae
+32843,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+32903,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+32917,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+32920,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+32922,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Escherichia coli
+32973,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+32979,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33005,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33010,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33019,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33057,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+33090,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33110,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33117,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class Unknown,Escherichia coli
+33118,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+33137,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33164,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33166,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33179,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),NA,Escherichia coli
+33182,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+33191,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33231,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33258,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Escherichia coli
+33264,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33278,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Escherichia coli
+33340,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33351,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33355,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Escherichia coli
+33375,EC,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class A or D,Escherichia coli
+33379,EC,Negative,Negative,KPC,KPC/OXA,mCIM(+)/eCIM(-),Class A or D,Escherichia coli
+32958,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+32974,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33001,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33016,ENT.CLOACAE,Negative,Negative,Negative,Negative,NA,Negative,Enterobacter cloacae complex
+33041,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33042,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33045,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33047,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33069,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33073,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33085,ENT.CLOACAE,Negative,Negative,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33129,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33131,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33136,ENT.CLOACAE,Negative,Negative,IMP,IMP/NDM/VIM,mCIM(+)/eCIM(+),Class B,Enterobacter cloacae complex
+33139,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33142,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33145,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33150,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33151,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33165,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33189,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33190,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33201,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33210,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33214,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33217,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33232,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33241,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33247,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33280,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33285,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33287,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33309,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33325,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33328,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33330,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33333,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+33334,ENT.CLOACAE,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Enterobacter cloacae complex
+32570,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Class B,Klebsiella aerogenes
+32632,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32647,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32713,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32825,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32841,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32890,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32902,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+32934,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33035,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33063,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33204,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33236,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33237,K.AEROGENES,Negative,Negative,Negative,Negative,mCIM(-)/eCIM(-),Negative,Klebsiella aerogenes
+33215,NA,NA,NA,NA,NA,mCIM(-)/eCIM(-),NA,NA
+33347,NA,NA,NA,NA,NA,mCIM(+)/eCIM(+),NA,NA
+33348,NA,NA,NA,NA,NA,mCIM(+)/eCIM(+),NA,NA
+33380,NA,NA,NA,NA,NA,mCIM(-)/eCIM(-),NA,NA
+B20043-7,KP,NA,NA,NA,NA,mCIM(+)/eCIM(-),Class Unknown,Klebsiella pneumoniae
+33088,CITRO.FREUNDII,NA,NA,NA,NA,mCIM(+)/eCIM(+),Class B,Citrobacter freundii complex
+35087,K.OXYTOCA,NA,NA,NA,NA,mCIM(+)/eCIM(+),Class B,Klebsiella oxytoca
+29171,KP,NA,NA,NA,NA,NA,Class Unknown,Klebsiella pneumoniae
+29455,KP,NA,NA,NA,NA,NA,Class Unknown,Klebsiella pneumoniae
+29464,KP,NA,NA,NA,NA,NA,Class Unknown,Klebsiella pneumoniae
+30358,KP,NA,NA,NA,NA,NA,Class B,Klebsiella pneumoniae
+30375,KP,NA,NA,NA,NA,NA,Class A or D,Klebsiella pneumoniae
+30462,KP,NA,NA,NA,NA,NA,Class B,Klebsiella pneumoniae
