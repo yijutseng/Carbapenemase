@@ -518,7 +518,7 @@ CPOMPCRGrpup %>%
 
 -   Gene grouping (Figure 4 A)
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, fig.height=4,fig.width=6}
 #| echo: false
 
 CPOMPCRGrpup %>% group_by(MPCRGroup,CPO) %>%
@@ -528,7 +528,7 @@ CPOMPCRGrpup %>% group_by(MPCRGroup,CPO) %>%
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+labs(x="CPO",y="MPCR",fill="Count")
-ggsave("Fig4A.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig4A.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 ```{r warning=FALSE, message=FALSE,fig.height=8,fig.width=12}
@@ -765,7 +765,7 @@ CombineData %>% group_by(CARBA5,CARBA5Group,CPO) %>%
 
 -   Gene grouping (Figure 5 A)
 
-```{r warning=F,message=F}
+```{r warning=F,message=F, fig.height=4,fig.width=6}
 #| echo: false
 CombineData %>% group_by(CARBA5Group,CPO) %>%
   summarise(Total=n()) %>% 
@@ -774,7 +774,7 @@ CombineData %>% group_by(CARBA5Group,CPO) %>%
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title="Whole isolates")
-ggsave("Fig5A.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig5A.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 ## Klebsiella pneumoniae
@@ -1062,7 +1062,7 @@ MPCR_CAAST %>% group_by(Name,GENENew,Res) %>%
 
 ## MIC vs. CPO
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, fig.height=4,fig.width=6}
 #| echo: false
 MICCPO<-AST %>% select(ID,Name,SPECIES,Tit,Ab,CPO) %>% unique() %>%
   filter(Ab %in% c("Ertapenem","Imipenem","Meropenem","Ceftazidime-Avibactam") &
@@ -1287,7 +1287,7 @@ MICCPOCARBA5 %>% filter(Ab=="Ceftazidime-Avibactam") %>%
 
 ### Gene grouping (Figure 6 B)
 
-```{r warning=F,message=F}
+```{r warning=F,message=F, fig.height=4,fig.width=6}
 #| echo: false
 MICCPOCARBA5 %>% filter(Ab=="Meropenem") %>%
   group_by(Tit,CARBA5Group) %>%
@@ -1346,7 +1346,7 @@ CARBA5_MPCRGroup<-inner_join(CARBA5_MPCRGroup,NameSP,by="SPECIES")
 
 ## All (Figure 4 B)
 
-```{r warning=F,message=F}
+```{r warning=F,message=F, fig.height=4,fig.width=6}
 #| echo: false
 CombineData %>%
   group_by(CARBA5Group,MPCRGroup) %>%
@@ -1710,7 +1710,7 @@ KOGroup<-
 
 all SPECIES 20230502 CPO NA -\> no results in file.
 
-```{r warning=F,message=F}
+```{r warning=F,message=F, fig.height=4,fig.width=6}
 #| echo: false
 #CombineData %>%
 #  filter(MPCR=="Negative")
