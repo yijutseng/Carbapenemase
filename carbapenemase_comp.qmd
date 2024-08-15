@@ -1108,7 +1108,7 @@ MICCPO %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+
   labs(x="MIC",y="CPO",title="Ceftazidime-Avibactam")
-ggsave("Fig6A.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig6A.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 (Figure 6 A)
@@ -1321,7 +1321,7 @@ MICCPOCARBA5 %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Ceftazidime-Avibactam")
-ggsave("Fig6B.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig6B.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 (Figure 6 B)
@@ -1358,7 +1358,7 @@ CombineData %>%
       theme_classic()+
       labs(x="CARBA5",y="MPCR")+
       scale_fill_gradient(low="#F7FBFF",high=highcolor)
-ggsave("Fig4B.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig4B.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 ```{r warning=F,message=F, fig.height=8,fig.width=12}
@@ -1728,7 +1728,7 @@ CombineData %>%
   theme_classic()+
   labs(x="CPO",y="CARBA5",title="MPCR-positive isolates")+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)
-ggsave("Fig5B.pdf",device = "pdf",width = 8,height = 6)
+ggsave("Fig5B.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 ```{r warning=F,message=F}
