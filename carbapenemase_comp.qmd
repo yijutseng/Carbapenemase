@@ -390,7 +390,7 @@ CombineData_comp_conv_3 %>% group_by(Conventional_MPCR_Group,FirstAll_MPCR_Group
   labs(x="Conventional - MPCR",y="FirstAll - MPCR")+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)
 
-ggsave("Con_vs_FirstAll_PCR.pdf",device = "pdf",width = 6,height = 4)
+ggsave("Fig2-Con_vs_FirstAll_PCR.pdf",device = "pdf",width = 6,height = 4)
 ```
 
 # CPO vs. mCIMeCIM (Figure 3) {#cpo-vs.-mcimecim}
@@ -492,6 +492,7 @@ CFCCPO<-
   #theme(title = ggtext::element_markdown())
 
 KPCPO+KOCPO+KACOP+ECCPO+ECCCPO+CKCPO+CFCCPO
+ggsave("Fig3.pdf",device = "pdf",width = 12,height = 8)
 ```
 
 # CPO vs. MPCR {#cpo-vs.-mpcr}
@@ -527,6 +528,7 @@ CPOMPCRGrpup %>% group_by(MPCRGroup,CPO) %>%
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+labs(x="CPO",y="MPCR",fill="Count")
+ggsave("Fig4A.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 ```{r warning=FALSE, message=FALSE,fig.height=8,fig.width=12}
@@ -771,7 +773,8 @@ CombineData %>% group_by(CARBA5Group,CPO) %>%
   geom_tile()+geom_text()+
   scale_x_discrete(guide = guide_axis(n.dodge=2))+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
-  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count")
+  theme_classic()+labs(x="CPO",y="CARBA5",fill="Count",title="Whole isolates")
+ggsave("Fig5A.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 ## Klebsiella pneumoniae
@@ -1105,6 +1108,7 @@ MICCPO %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+
   labs(x="MIC",y="CPO",title="Ceftazidime-Avibactam")
+ggsave("Fig6A.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 (Figure 6 A)
@@ -1149,6 +1153,7 @@ MICCPOCIM %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+
   labs(x="MIC",y="mCIM/eCIM",title="Ceftazidime-Avibactam")
+
 ```
 
 ## MIC vs. MPCR
@@ -1316,6 +1321,7 @@ MICCPOCARBA5 %>% filter(Ab=="Ceftazidime-Avibactam") %>%
   scale_fill_gradient(low="#F7FBFF",high=highcolor)+
   theme_classic()+
   labs(x="MIC",y="CARBA5",title="Ceftazidime-Avibactam")
+ggsave("Fig6B.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 (Figure 6 B)
@@ -1352,6 +1358,7 @@ CombineData %>%
       theme_classic()+
       labs(x="CARBA5",y="MPCR")+
       scale_fill_gradient(low="#F7FBFF",high=highcolor)
+ggsave("Fig4B.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 ```{r warning=F,message=F, fig.height=8,fig.width=12}
@@ -1719,8 +1726,9 @@ CombineData %>%
   ggplot(aes(x=CPO,y=CARBA5Group,fill=Count,label=Count))+
   geom_tile()+geom_text()+
   theme_classic()+
-  labs(x="CPO",y="CARBA5")+
+  labs(x="CPO",y="CARBA5",title="MPCR-positive isolates")+
   scale_fill_gradient(low="#F7FBFF",high=highcolor)
+ggsave("Fig5B.pdf",device = "pdf",width = 8,height = 6)
 ```
 
 ```{r warning=F,message=F}
